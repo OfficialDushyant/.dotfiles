@@ -53,6 +53,8 @@ if [ "$OS" = "Linux" ]; then
   printf "${YELLOW}Installing TimeShift application for automated backup snapshot (Similar functionality as Time Machine in MacOS)${NC}\n\n"
   # Update apt before installing 
   sudo apt update && sudo apt upgrade
+  # Install TimeShift
+  sudo apt install timeshift
   
 
   # Create required directories in system
