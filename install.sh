@@ -53,10 +53,15 @@ if [ "$OS" = "Linux" ]; then
   printf "${YELLOW}Installing TimeShift application for automated backup snapshot (Similar functionality as Time Machine in MacOS)${NC}\n\n"
   # Update apt before installing 
   sudo apt update && sudo apt upgrade
-  # Install TimeShift
+  # Install TimeShift for snapshot backup
   sudo apt-get install timeshift
-  
-
+  # Install Flameshot app for screen shot
+  sudo apt-get install flameshot 
+  # Create dir for screenshot if don't exist
+  Screenshots="$HOME/Pictures/Screenshots"
+  if [ ! -d "$Screenshots" ]; then
+    mkdir $Screenshots
+  fi
   # Create required directories in system
   # printf "\n${GREEN}Creating required directories.${NC}\n"
 
