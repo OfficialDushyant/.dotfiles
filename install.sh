@@ -54,7 +54,7 @@ if [ "$OS" = "Linux" ]; then
   # Update apt before installing 
   sudo apt update && sudo apt upgrade
   # Install TimeShift
-  sudo apt install timeshift
+  sudo apt-get install timeshift
   
 
   # Create required directories in system
