@@ -49,12 +49,16 @@ if [ "$OS" = "Linux" ]; then
   exit 0
   fi
 
-  # Install "TimeShift" backup app
-  printf "${YELLOW}Installing TimeShift application for automated backup snapshot (Similar functionality as Time Machine in MacOS)${NC}\n\n"
   # Update apt before installing 
   sudo apt update && sudo apt upgrade
+
+  # Install "TimeShift" backup app
+  printf "${YELLOW}Installing TimeShift application for automated backup snapshot (Similar functionality as Time Machine in MacOS)${NC}\n\n"
+  
   # Install TimeShift for snapshot backup
   sudo apt-get install timeshift
+
+  printf "${YELLOW}Installing Flameshot application for taking Screenshot.${NC}\n\n"
   # Install Flameshot app for screen shot
   sudo apt-get install flameshot 
   # Create dir for screenshot if don't exist
@@ -62,6 +66,18 @@ if [ "$OS" = "Linux" ]; then
   if [ ! -d "$Screenshots" ]; then
     mkdir $Screenshots
   fi
+
+  # Install Snap package 
+  printf "${YELLOW}Installing Snap package manager.${NC}\n\n"
+  sudo apt-get install snapd
+
+  # Installing bitwarden
+  printf "${YELLOW}Installing Bitwarden password manager.${NC}\n\n"
+  sudo snap install bitwarden
+
+  # Installing Authy 
+  printf "${YELLOW}Installing 2FA Auth TOTP.${NC}\n\n"
+  sudo snap install authy 
   # Create required directories in system
   # printf "\n${GREEN}Creating required directories.${NC}\n"
 
