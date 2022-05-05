@@ -100,7 +100,12 @@ system_info()
     echo "$DIST and $VER"
     ;;
   "Darwin")
-      
+      OIFS="$IFS"
+      IFS=$'\n'
+      set `sw_vers` > /dev/null
+      DIST=`echo $1 | tr "\n:\t\t\t" ' ' | sed 's/ProductName[ ]*//'`
+      VER=`echo $2 | tr "\n:\t\t" ' ' | sed 's/ProductVersion[ ]*//'`
+      echo "$DIST and $VER"
     ;;
   *)
     # leave ARCH as-is
