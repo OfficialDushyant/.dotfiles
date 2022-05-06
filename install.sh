@@ -109,6 +109,11 @@ system_setup()
       # Set restart to true as it will be first time setup
       RESTART_REQUIRED=true
     fi
+
+    #  Add Package managers and update `apt`  restart system
+    # Install basic applications
+    # Run stow commands to sync dotfiles
+    
     printf "$RESTART_REQUIRED"
     
     ;;
