@@ -11,7 +11,7 @@ YELLOW='\033[0;33m'
 YELLOW_HL='\033[1;43m'
 NC='\033[0m' # No Color
 
-
+RESTART_REQUIRED=false
 
 # OS="$(uname -s)"
 
@@ -88,7 +88,7 @@ NC='\033[0m' # No Color
 #   exit 0
 # fi
 
-system_info()
+system_setup()
 {
 
   case $(uname -s) in 
@@ -96,8 +96,21 @@ system_info()
     . /etc/os-release
     DIST=$NAME
     VER=$VERSION_ID
-  
-    echo "$DIST and $VER"
+
+    # Create log file with system info
+    LogFile="$HOME/.dotfiles/SYSTEM_INFO.log"
+
+    if [ ! -f "$LogFile" ]; then
+      printf "OS Info\n\n$(cat /etc/os-release)\n\n\n"  >> SYSTEM_INFO.log
+      printf "CPU Info\n\n$(sudo lscpu )\n\n\n" >> SYSTEM_INFO.log
+      printf "GPU Info\n\n$(sudo lshw -C display )\n\n\n" >> SYSTEM_INFO.log
+      printf "Memory Info\n\n$(sudo lshw -C memory )\n\n\n" >> SYSTEM_INFO.log
+      printf "Volume Info\n\n$(sudo lshw -C volume )\n\n\n" >> SYSTEM_INFO.log
+      # Set restart to true as it will be first time setup
+      RESTART_REQUIRED=true
+    fi
+    printf "$RESTART_REQUIRED"
+    
     ;;
   "Darwin")
       OIFS="$IFS"
@@ -105,20 +118,24 @@ system_info()
       set `sw_vers` > /dev/null
       DIST=`echo $1 | tr "\n:\t\t\t" ' ' | sed 's/ProductName[ ]*//'`
       VER=`echo $2 | tr "\n:\t\t" ' ' | sed 's/ProductVersion[ ]*//'`
-      echo "$DIST and $VER"
+    
     ;;
   *)
     # leave ARCH as-is
     return
     ;;
   esac
-
 }
 
 main()
 {
+  if [ "$(pwd)" != "$HOME/.dotfiles" ]; then
+    echo "You'll need to clone .dotfiles in your home folder to make it work."
+    exit 0
+  fi
   # Detecting System Info
-  system_info
+  system_setup
+  echo "$DIST and $VER"
   exit 0
 }
 main
