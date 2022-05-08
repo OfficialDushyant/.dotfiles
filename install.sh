@@ -109,7 +109,6 @@ draw_ascii()
   esac
 }
 
-
 system_setup()
 {
   draw_ascii $OS
@@ -159,23 +158,50 @@ system_setup()
       set `sw_vers` > /dev/null
       DIST=`echo $1 | tr "\n:\t\t\t" ' ' | sed 's/ProductName[ ]*//'`
       VER=`echo $2 | tr "\n:\t\t" ' ' | sed 's/ProductVersion[ ]*//'`
-    
     ;;
   *)
-    # leave ARCH as-is
-    return
+    # leave as is
+      return
     ;;
   esac
 }
 
 install_package_manager()
 {
-  printf "\n $YELLOW_HL Installing snapd package for $DIST $VER. $NC\n"
-  sudo apt-get install snapd
+  case $OS in 
+  "Linux")
+    # Snap package manager
+    printf "\n $YELLOW_HL Installing snapd package for $DIST $VER. $NC\n"
+    sudo apt-get install snapd
+    # Flatpak package manager
+    printf "\n $YELLOW_HL Installing Flatpak package for $DIST $VER. $NC\n"
+    sudo apt-get install flatpak
+    sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  ;;
+  *)
+    # leave as is
+    return
+  ;;
+  esac
+}
 
-  printf "\n $YELLOW_HL Installing Flatpak package for $DIST $VER. $NC\n"
-  sudo apt-get install flatpak
-  sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+install_apps()
+{
+  case $OS in 
+  "Linux")
+    # Install BitWarden (Password manager)
+    printf "\n $YELLOW_HL Installing Bitwarden password manager $NC\n"
+    sudo sudo snap install bitwarden
+    # Install Authy (OTP 2FA generator)
+    printf "\n $YELLOW_HL Installing Authy 2FA OTP generator $NC\n"
+    sudo snap install authy
+  ;;
+  *)
+    # leave as is
+    return
+  ;;
+  esac
+  
 }
 
 main()
@@ -190,10 +216,13 @@ main()
   # Add Package managers 
   install_package_manager
 
+  # Install basic applications
+  install_apps
   if [ "$RESTART_REQUIRED" = true ]; then
     sudo systemctl reboot
   fi
 
   exit 0
 }
+
 main
