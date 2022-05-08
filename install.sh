@@ -12,24 +12,11 @@ YELLOW_HL='\033[1;43m'
 NC='\033[0m' # No Color
 
 RESTART_REQUIRED=false
-
-# OS="$(uname -s)"
+OS="$(uname -s)"
 
 # if [ "$OS" = "Linux" ]; then
 #   # Add ASCII art for OS
-#   printf "\n\n\n$GREEN
-#                                                                  #####
-#                                                                 #######
-#                    #                                            ##O#O##
-#   ######          ###                                           #VVVVV#
-#     ##             #                                          ##  VVV  ##
-#     ##         ###    ### ####   ###    ###  ##### #####     #          ##
-#     ##        #  ##    ###    ##  ##     ##    ##   ##      #            ##
-#     ##       #   ##    ##     ##  ##     ##      ###        #            ###
-#     ##          ###    ##     ##  ##     ##      ###       QQ#           ##Q
-#     ##       # ###     ##     ##  ##     ##     ## ##    QQQQQQ#       #QQQQQQ
-#     ##      ## ### #   ##     ##  ###   ###    ##   ##   QQQQQQQ#     #QQQQQQQ
-#   ############  ###   ####   ####   #### ### ##### #####   QQQQQ#######QQQQQ\n\n\n$NC"
+
 
 #   printf "${BLUE}Initiating initial setup for Linux operating system.\n${NC}"
 #   printf "${RED}This script is tested for following linux distribution.\n 
@@ -88,10 +75,47 @@ RESTART_REQUIRED=false
 #   exit 0
 # fi
 
+# Drawing ascii art based on os
+draw_ascii()
+{
+  case $1 in 
+  'Linux')
+      printf "\n\n\n$GREEN
+                                                                 #####
+                                                                #######
+                   #                                            ##O#O##
+  ######          ###                                           #VVVVV#
+    ##             #                                          ##  VVV  ##
+    ##         ###    ### ####   ###    ###  ##### #####     #          ##
+    ##        #  ##    ###    ##  ##     ##    ##   ##      #            ##
+    ##       #   ##    ##     ##  ##     ##      ###        #            ###
+    ##          ###    ##     ##  ##     ##      ###       QQ#           ##Q
+    ##       # ###     ##     ##  ##     ##     ## ##    QQQQQQ#       #QQQQQQ
+    ##      ## ### #   ##     ##  ###   ###    ##   ##   QQQQQQQ#     #QQQQQQQ
+  ############  ###   ####   ####   #### ### ##### #####   QQQQQ#######QQQQQ\n\n\n$NC"
+  ;;
+  *)
+    printf "$OS is not supported by this script"
+  ;;
+  esac
+}
+
+install_package_manager()
+{
+  printf "\n $YELLOW_HL Installing snapd package for $DIST and $VER. $NC\n"
+  sudo apt-get install snapd
+
+  printf "\n $YELLOW_HL Installing Flatpak package for $DIST and $VER. $NC\n"
+sudo apt-get install flatpak
+
+
+  printf 
+}
+
 system_setup()
 {
-
-  case $(uname -s) in 
+  draw_ascii $OS
+  case $OS in 
   "Linux") 
     . /etc/os-release
     DIST=$NAME
@@ -106,15 +130,25 @@ system_setup()
       printf "GPU Info\n\n$(sudo lshw -C display )\n\n\n" >> SYSTEM_INFO.log
       printf "Memory Info\n\n$(sudo lshw -C memory )\n\n\n" >> SYSTEM_INFO.log
       printf "Volume Info\n\n$(sudo lshw -C volume )\n\n\n" >> SYSTEM_INFO.log
+      
       # Set restart to true as it will be first time setup
       RESTART_REQUIRED=true
     fi
+    # Update and upgrade default apt packaging system for Debian
+    sudo apt update && sudo apt upgrade 
+    
+    # Add Package managers 
+    install_package_manager
 
-    #  Add Package managers and update `apt`  restart system
+    # Restart the system if required
+
+
+    # Instal nerd fonts
+
     # Install basic applications
+    
     # Run stow commands to sync dotfiles
     
-    printf "$RESTART_REQUIRED"
     
     ;;
   "Darwin")
@@ -138,9 +172,13 @@ main()
     echo "You'll need to clone .dotfiles in your home folder to make it work."
     exit 0
   fi
-  # Detecting System Info
+  # Performs initial setup for new systems (Installing basic packages)
   system_setup
-  echo "$DIST and $VER"
+
+  if [ "$RESTART_REQUIRED" = true ]; then
+    echo "System will need to restart here"
+  fi
+  echo "$DIST and $VER\n"
   exit 0
 }
 main
