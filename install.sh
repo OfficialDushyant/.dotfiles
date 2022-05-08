@@ -109,18 +109,6 @@ draw_ascii()
   esac
 }
 
-install_package_manager()
-{
-  printf "\n $YELLOW_HL Installing snapd package for $DIST and $VER. $NC\n"
-  sudo apt-get install snapd
-
-  printf "\n $YELLOW_HL Installing Flatpak package for $DIST and $VER. $NC\n"
-  sudo apt-get install flatpak
-  sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-
-
-  printf 
-}
 
 system_setup()
 {
@@ -162,6 +150,16 @@ system_setup()
   esac
 }
 
+install_package_manager()
+{
+  printf "\n $YELLOW_HL Installing snapd package for $DIST $VER. $NC\n"
+  sudo apt-get install snapd
+
+  printf "\n $YELLOW_HL Installing Flatpak package for $DIST $VER. $NC\n"
+  sudo apt-get install flatpak
+  sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+}
+
 main()
 {
   if [ "$(pwd)" != "$HOME/.dotfiles" ]; then
@@ -177,7 +175,7 @@ main()
   if [ "$RESTART_REQUIRED" = true ]; then
     sudo systemctl reboot
   fi
-  echo "$DIST and $VER\n"
+  
   exit 0
 }
 main
