@@ -119,6 +119,24 @@ system_setup()
     DIST=$NAME
     VER=$VERSION_ID
 
+    # Support WARNING;
+    printf "${RED}This script is tested for following linux distribution.\n 
+    1) Pop!_OS 18.04 LTS and up\n 
+    2) Ubuntu 18.04 LTS and up\n
+    \n${NC}"
+
+    # Ask if user want to go ahead with the setup
+
+    printf "${YELLOW}Would you like to continue with the Linux initial setup ? [Y/n]${NC}\n"
+    continue_default="y" # Set Y to be default value 
+    read  continue # Read user input
+    continue="${continue:-${continue_default}}" # Assign default value 
+    continue=$(echo $continue | tr '[:upper:]' '[:lower:]')  # Change input to lowercase 
+    # If user in put is not "Y" exit the Script 
+    if [ "$continue" != "y" ] ; then
+    exit 0
+    fi
+
     # Create log file with system info
     LogFile="$HOME/.dotfiles/SYSTEM_INFO.log"
 
@@ -175,7 +193,7 @@ main()
   if [ "$RESTART_REQUIRED" = true ]; then
     sudo systemctl reboot
   fi
-  
+
   exit 0
 }
 main
