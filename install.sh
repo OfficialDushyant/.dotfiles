@@ -1,5 +1,14 @@
 #!/bin/sh
 
+# TODO
+
+  # Instal nerd fonts
+
+  # Install basic applications
+
+  # Run stow commands to sync dotfiles
+
+
 # Color Code
 RED='\033[0;31m'
 RED_HL='\033[1;41m'
@@ -106,7 +115,8 @@ install_package_manager()
   sudo apt-get install snapd
 
   printf "\n $YELLOW_HL Installing Flatpak package for $DIST and $VER. $NC\n"
-sudo apt-get install flatpak
+  sudo apt-get install flatpak
+  sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 
   printf 
@@ -135,21 +145,7 @@ system_setup()
       RESTART_REQUIRED=true
     fi
     # Update and upgrade default apt packaging system for Debian
-    sudo apt update && sudo apt upgrade 
-    
-    # Add Package managers 
-    install_package_manager
-
-    # Restart the system if required
-
-
-    # Instal nerd fonts
-
-    # Install basic applications
-    
-    # Run stow commands to sync dotfiles
-    
-    
+    sudo apt update && sudo apt upgrade  
     ;;
   "Darwin")
       OIFS="$IFS"
@@ -174,9 +170,12 @@ main()
   fi
   # Performs initial setup for new systems (Installing basic packages)
   system_setup
+  
+  # Add Package managers 
+  install_package_manager
 
   if [ "$RESTART_REQUIRED" = true ]; then
-    echo "System will need to restart here"
+    sudo systemctl reboot
   fi
   echo "$DIST and $VER\n"
   exit 0
