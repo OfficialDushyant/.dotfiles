@@ -1,10 +1,12 @@
 #!/bin/sh
 
 # TODO
+  
+  # Setup zsh and .Oh-my-zsh 
+
+  # Add dotfiles with stow
 
   # Instal nerd fonts
-
-  # Install basic applications
 
   # Run stow commands to sync dotfiles
 
