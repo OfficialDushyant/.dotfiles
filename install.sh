@@ -203,6 +203,20 @@ install_apps() {
   esac
 
 }
+install_fonts()
+{
+  case $OS in
+  "Linux")
+      cp -r "$(pwd)/fonts/fira_code_nf" "$HOME/.local/share/fonts"
+      cp "$(pwd)/fonts/PowerlineSymbols.otf" "$HOME/.local/share/fonts"
+      fc-cache -f -v
+    ;;
+  *)
+    # leave as is
+    return
+    ;;
+  esac
+}
 
 main() {
   if [ "$(pwd)" != "$HOME/.dotfiles" ]; then
@@ -218,7 +232,8 @@ main() {
   # Install basic applications
   install_apps
 
-  # Setup ZSH
+  # Install Fonts
+  install_fonts
 
   # Reboot system 
   if [ "$RESTART_REQUIRED" = true ]; then
