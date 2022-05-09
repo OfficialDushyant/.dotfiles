@@ -2,8 +2,6 @@
 
 # TODO
 
-# Setup zsh and .Oh-my-zsh
-
 # Add dotfiles with stow
 
 # Instal nerd fonts
@@ -191,6 +189,9 @@ install_apps() {
     # Install Authy (OTP 2FA generator)
     printf "\n $YELLOW_HL Installing Authy 2FA OTP generator $NC\n"
     sudo snap install authy
+    # Install GNU Stow for managing configs using symlinks
+    printf "\n $YELLOW_HL Installing GNU Stow for managing dotfiles$NC\n"
+    sudo apt-get install stow
     ;;
   *)
     # leave as is
@@ -213,6 +214,10 @@ main() {
 
   # Install basic applications
   install_apps
+
+  # Setup ZSH
+
+  # Reboot system 
   if [ "$RESTART_REQUIRED" = true ]; then
     printf "${RED}System will require to reboot after upgrade, You need to run this script again once the system reboots; would you like to reboot now? [Y/n]${NC}\n"
     reboot_default="y"                                    # Set Y to be default value
@@ -221,7 +226,18 @@ main() {
     reboot=$(echo $reboot | tr '[:upper:]' '[:lower:]')   # Change input to lowercase
     # If user in put is not "Y" exit the Script
     if [ "$reboot" = "y" ]; then
-        sudo systemctl reboot
+        case $OS in
+        "Linux")
+          sudo systemctl reboot
+        ;;
+        "Darwin")
+          sudo shutdown -r now
+        ;;
+        *)
+          # leave as is
+        return
+        ;;
+  esac
     else
       printf "${RED}You will require to do manual reboot for some updates to take effect.${NC}\n"
       sleep 5
