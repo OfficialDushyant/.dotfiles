@@ -214,7 +214,18 @@ main() {
   # Install basic applications
   install_apps
   if [ "$RESTART_REQUIRED" = true ]; then
-    sudo systemctl reboot
+    printf "${RED}System will require to reboot after upgrade, You need to run this script again once the system reboots; would you like to reboot now? [Y/n]${NC}\n"
+    reboot_default="y"                                    # Set Y to be default value
+    read reboot                                           # Read user input
+    reboot="${reboot:-${reboot_default}}"                 # Assign default value
+    reboot=$(echo $reboot | tr '[:upper:]' '[:lower:]')   # Change input to lowercase
+    # If user in put is not "Y" exit the Script
+    if [ "$reboot" = "y" ]; then
+        sudo systemctl reboot
+    else
+      printf "${RED}You will require to do manual reboot for some updates to take effect.${NC}\n"
+      sleep 5
+    fi
   fi
 
   exit 0
