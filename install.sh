@@ -2,9 +2,12 @@
 
 # TODO
 
-# Add dotfiles with stow
-
 # Instal nerd fonts
+
+# Setup Oh-my-zsh
+
+# Add dotfiles with stow (git configs, vim configs, zsh configs)
+
 
 # Run stow commands to sync dotfiles
 
