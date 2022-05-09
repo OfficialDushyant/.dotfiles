@@ -1,15 +1,14 @@
 #!/bin/sh
 
 # TODO
-  
-  # Setup zsh and .Oh-my-zsh 
 
-  # Add dotfiles with stow
+# Setup zsh and .Oh-my-zsh
 
-  # Instal nerd fonts
+# Add dotfiles with stow
 
-  # Run stow commands to sync dotfiles
+# Instal nerd fonts
 
+# Run stow commands to sync dotfiles
 
 # Color Code
 RED='\033[0;31m'
@@ -28,46 +27,45 @@ OS="$(uname -s)"
 # if [ "$OS" = "Linux" ]; then
 #   # Add ASCII art for OS
 
-
 #   printf "${BLUE}Initiating initial setup for Linux operating system.\n${NC}"
-#   printf "${RED}This script is tested for following linux distribution.\n 
-#   1) Pop!_OS\n 
+#   printf "${RED}This script is tested for following linux distribution.\n
+#   1) Pop!_OS\n
 #   2) Ubuntu\n
 #   \n${NC}"
-  
+
 #   # Print System info
-#   printf "$(egrep '^(VERSION|NAME)=' /etc/os-release)\n\n" 
+#   printf "$(egrep '^(VERSION|NAME)=' /etc/os-release)\n\n"
 #   # Ask if user want to go ahead with the setup
 
 #   printf "${YELLOW}Would you like to continue with the Linux initial setup ? [Y/n]${NC}\n"
-#   continue_default="y" # Set Y to be default value 
+#   continue_default="y" # Set Y to be default value
 #   read  continue # Read user input
-#   continue="${continue:-${continue_default}}" # Assign default value 
-#   continue=$(echo $continue | tr '[:upper:]' '[:lower:]')  # Change input to lowercase 
-#   # If user in put is not "Y" exit the Script 
+#   continue="${continue:-${continue_default}}" # Assign default value
+#   continue=$(echo $continue | tr '[:upper:]' '[:lower:]')  # Change input to lowercase
+#   # If user in put is not "Y" exit the Script
 #   if [ "$continue" != "y" ] ; then
 #   exit 0
 #   fi
 
-#   # Update apt before installing 
+#   # Update apt before installing
 #   sudo apt update && sudo apt upgrade
 
 #   # Install "TimeShift" backup app
 #   printf "${YELLOW}Installing TimeShift application for automated backup snapshot (Similar functionality as Time Machine in MacOS)${NC}\n\n"
-  
+
 #   # Install TimeShift for snapshot backup
 #   sudo apt-get install timeshift
 
 #   printf "${YELLOW}Installing Flameshot application for taking Screenshot.${NC}\n\n"
 #   # Install Flameshot app for screen shot
-#   sudo apt-get install flameshot 
+#   sudo apt-get install flameshot
 #   # Create dir for screenshot if don't exist
 #   Screenshots="$HOME/Pictures/Screenshots"
 #   if [ ! -d "$Screenshots" ]; then
 #     mkdir $Screenshots
 #   fi
 
-#   # Install Snap package 
+#   # Install Snap package
 #   printf "${YELLOW}Installing Snap package manager.${NC}\n\n"
 #   sudo apt-get install snapd
 
@@ -75,9 +73,9 @@ OS="$(uname -s)"
 #   printf "${YELLOW}Installing Bitwarden password manager.${NC}\n\n"
 #   sudo snap install bitwarden
 
-#   # Installing Authy 
+#   # Installing Authy
 #   printf "${YELLOW}Installing 2FA Auth TOTP.${NC}\n\n"
-#   sudo snap install authy 
+#   sudo snap install authy
 #   # Create required directories in system
 #   # printf "\n${GREEN}Creating required directories.${NC}\n"
 
@@ -87,11 +85,10 @@ OS="$(uname -s)"
 # fi
 
 # Drawing ascii art based on os
-draw_ascii()
-{
-  case $1 in 
+draw_ascii() {
+  case $1 in
   'Linux')
-      printf "\n\n\n$GREEN
+    printf "\n\n\n$GREEN
                                                                  #####
                                                                 #######
                    #                                            ##O#O##
@@ -104,18 +101,17 @@ draw_ascii()
     ##       # ###     ##     ##  ##     ##     ## ##    QQQQQQ#       #QQQQQQ
     ##      ## ### #   ##     ##  ###   ###    ##   ##   QQQQQQQ#     #QQQQQQQ
   ############  ###   ####   ####   #### ### ##### #####   QQQQQ#######QQQQQ\n\n\n$NC"
-  ;;
+    ;;
   *)
     printf "$OS is not supported by this script"
-  ;;
+    ;;
   esac
 }
 
-system_setup()
-{
+system_setup() {
   draw_ascii $OS
-  case $OS in 
-  "Linux") 
+  case $OS in
+  "Linux")
     . /etc/os-release
     DIST=$NAME
     VER=$VERSION_ID
@@ -129,48 +125,47 @@ system_setup()
     # Ask if user want to go ahead with the setup
 
     printf "${YELLOW}Would you like to continue with the Linux initial setup ? [Y/n]${NC}\n"
-    continue_default="y" # Set Y to be default value 
-    read  continue # Read user input
-    continue="${continue:-${continue_default}}" # Assign default value 
-    continue=$(echo $continue | tr '[:upper:]' '[:lower:]')  # Change input to lowercase 
-    # If user in put is not "Y" exit the Script 
-    if [ "$continue" != "y" ] ; then
-    exit 0
+    continue_default="y"                                    # Set Y to be default value
+    read continue                                           # Read user input
+    continue="${continue:-${continue_default}}"             # Assign default value
+    continue=$(echo $continue | tr '[:upper:]' '[:lower:]') # Change input to lowercase
+    # If user in put is not "Y" exit the Script
+    if [ "$continue" != "y" ]; then
+      exit 0
     fi
 
     # Create log file with system info
     LogFile="$HOME/.dotfiles/SYSTEM_INFO.log"
 
     if [ ! -f "$LogFile" ]; then
-      printf "OS Info\n\n$(cat /etc/os-release)\n\n\n"  >> SYSTEM_INFO.log
-      printf "CPU Info\n\n$(sudo lscpu )\n\n\n" >> SYSTEM_INFO.log
-      printf "GPU Info\n\n$(sudo lshw -C display )\n\n\n" >> SYSTEM_INFO.log
-      printf "Memory Info\n\n$(sudo lshw -C memory )\n\n\n" >> SYSTEM_INFO.log
-      printf "Volume Info\n\n$(sudo lshw -C volume )\n\n\n" >> SYSTEM_INFO.log
-      
+      printf "OS Info\n\n$(cat /etc/os-release)\n\n\n" >>SYSTEM_INFO.log
+      printf "CPU Info\n\n$(sudo lscpu)\n\n\n" >>SYSTEM_INFO.log
+      printf "GPU Info\n\n$(sudo lshw -C display)\n\n\n" >>SYSTEM_INFO.log
+      printf "Memory Info\n\n$(sudo lshw -C memory)\n\n\n" >>SYSTEM_INFO.log
+      printf "Volume Info\n\n$(sudo lshw -C volume)\n\n\n" >>SYSTEM_INFO.log
+
       # Set restart to true as it will be first time setup
       RESTART_REQUIRED=true
     fi
     # Update and upgrade default apt packaging system for Debian
-    sudo apt update && sudo apt upgrade  
+    sudo apt update && sudo apt upgrade
     ;;
   "Darwin")
-      OIFS="$IFS"
-      IFS=$'\n'
-      set `sw_vers` > /dev/null
-      DIST=`echo $1 | tr "\n:\t\t\t" ' ' | sed 's/ProductName[ ]*//'`
-      VER=`echo $2 | tr "\n:\t\t" ' ' | sed 's/ProductVersion[ ]*//'`
+    OIFS="$IFS"
+    IFS=$'\n'
+    set $(sw_vers) >/dev/null
+    DIST=$(echo $1 | tr "\n:\t\t\t" ' ' | sed 's/ProductName[ ]*//')
+    VER=$(echo $2 | tr "\n:\t\t" ' ' | sed 's/ProductVersion[ ]*//')
     ;;
   *)
     # leave as is
-      return
+    return
     ;;
   esac
 }
 
-install_package_manager()
-{
-  case $OS in 
+install_package_manager() {
+  case $OS in
   "Linux")
     # Snap package manager
     printf "\n $YELLOW_HL Installing snapd package for $DIST $VER. $NC\n"
@@ -179,17 +174,16 @@ install_package_manager()
     printf "\n $YELLOW_HL Installing Flatpak package for $DIST $VER. $NC\n"
     sudo apt-get install flatpak
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-  ;;
+    ;;
   *)
     # leave as is
     return
-  ;;
+    ;;
   esac
 }
 
-install_apps()
-{
-  case $OS in 
+install_apps() {
+  case $OS in
   "Linux")
     # Install BitWarden (Password manager)
     printf "\n $YELLOW_HL Installing Bitwarden password manager $NC\n"
@@ -197,25 +191,24 @@ install_apps()
     # Install Authy (OTP 2FA generator)
     printf "\n $YELLOW_HL Installing Authy 2FA OTP generator $NC\n"
     sudo snap install authy
-  ;;
+    ;;
   *)
     # leave as is
     return
-  ;;
+    ;;
   esac
-  
+
 }
 
-main()
-{
+main() {
   if [ "$(pwd)" != "$HOME/.dotfiles" ]; then
     echo "You'll need to clone .dotfiles in your home folder to make it work."
     exit 0
   fi
   # Performs initial setup for new systems (Installing basic packages)
   system_setup
-  
-  # Add Package managers 
+
+  # Add Package managers
   install_package_manager
 
   # Install basic applications
