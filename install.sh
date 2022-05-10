@@ -226,6 +226,27 @@ install_fonts()
     ;;
   esac
 }
+setup_zsh()
+{
+  case $OS in
+  "Linux")
+      # Install ZSH shell
+      sudo apt-get install zsh
+      # Install oh-my-zsh
+      sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+      # Install PowerLevel10K
+      git clone "https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k"
+      # Create symlinks to zsh config files 
+      stow --dir="$(pwd)/linux" --target="$HOME/"
+    ;;
+  *)
+    # leave as is
+    return
+    ;;
+  esac
+
+
+}
 
 main() {
   if [ "$(pwd)" != "$HOME/.dotfiles" ]; then
@@ -243,6 +264,9 @@ main() {
 
   # Install Fonts
   install_fonts
+
+  # Setup zsh
+  setup_zsh
 
   # Reboot system 
   if [ "$RESTART_REQUIRED" = true ]; then
