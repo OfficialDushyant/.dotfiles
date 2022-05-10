@@ -192,6 +192,15 @@ install_apps() {
     # Install Authy (OTP 2FA generator)
     printf "\n $YELLOW_HL Installing Authy 2FA OTP generator $NC\n"
     sudo snap install authy
+    # Install git version control system
+    printf "\n $YELLOW_HL Installing git version control system$NC\n"
+    sudo apt-get install git
+    # Install curl
+    printf "\n $YELLOW_HL Installing curl HTTP and FTP services$NC\n"
+    sudo apt-get install curl
+    # Install wget
+    printf "\n $YELLOW_HL Installing wget HTTP and FTP services$NC\n"
+    sudo apt-get install wget
     # Install GNU Stow for managing configs using symlinks
     printf "\n $YELLOW_HL Installing GNU Stow for managing dotfiles$NC\n"
     sudo apt-get install stow
@@ -207,8 +216,8 @@ install_fonts()
 {
   case $OS in
   "Linux")
-      cp -r "$(pwd)/fonts/fira_code_nf" "$HOME/.local/share/fonts"
-      cp "$(pwd)/fonts/PowerlineSymbols.otf" "$HOME/.local/share/fonts"
+      cp -r -n "$(pwd)/fonts/fira_code_nf" "$HOME/.local/share/fonts"
+      cp -n "$(pwd)/fonts/PowerlineSymbols.otf" "$HOME/.local/share/fonts"
       fc-cache -f -v
     ;;
   *)
