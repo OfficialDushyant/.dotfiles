@@ -195,9 +195,6 @@ install_apps() {
     # Install Authy (OTP 2FA generator)
     printf "\n $YELLOW_HL Installing Authy 2FA OTP generator $NC\n"
     sudo snap install authy
-    # Install git version control system
-    printf "\n $YELLOW_HL Installing git version control system$NC\n"
-    sudo apt-get install git
     # Install curl
     printf "\n $YELLOW_HL Installing curl HTTP and FTP services$NC\n"
     sudo apt-get install curl
