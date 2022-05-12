@@ -206,6 +206,9 @@ install_apps() {
     # Install GNU Stow for managing configs using symlinks
     printf "\n $YELLOW_HL Installing GNU Stow for managing dotfiles$NC\n"
     sudo apt-get install stow
+    # Install dnf and runtime uuid 
+    sudo apt-get install dconf-cli uuid-runtime
+
     ;;
   *)
     # leave as is
@@ -240,6 +243,9 @@ zsh_settings()
       git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting # clone syntax highlighting plugin
       git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions # clone autosuggestions plugin 
     fi
+    # Add terminal theme that changes fonts for Powerlevel10K theme
+    dconf reset -f /org/gnome/terminal/
+    dconf load /org/gnome/terminal/ < linux/one-dark.txt
   ;;
   *)
     # leave as is
@@ -298,11 +304,11 @@ main() {
   # Install Fonts
   install_fonts
 
-  # configure zsh & oh-my-zsh
-  zsh_settings
-
   # Create stow (symlinks) for config files
   stow_configs
+
+  # configure zsh & oh-my-zsh
+  zsh_settings
 
   # Reboot system 
   if [ "$RESTART_REQUIRED" = true ]; then
