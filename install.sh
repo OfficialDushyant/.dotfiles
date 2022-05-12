@@ -248,6 +248,39 @@ zsh_settings()
   esac
 }
 
+stow_configs()
+{
+  case $OS in
+  "Linux")
+    
+    # Move .zshrc tile if already created
+    ZSHRC="$HOME/.zshrc"
+    if [ -f "$ZSHRC" ]; then
+      sudo mv $ZSHRC $HOME/.zshrc.pre-dotfiles-install
+    fi
+
+    # Move .p10k.zsh tile if already created
+    ZSH_THEME="$HOME/.p10k.zsh"
+    if [ -f "$ZSH_THEME" ]; then
+      sudo mv $ZSH_THEME $HOME/.p10k.zsh.pre-dotfiles-install
+    fi
+
+    # Move .gitconfig tile if already created
+    GIT_CONF="$HOME/.gitconfig"
+    if [ -f "$GIT_CONF" ]; then
+        sudo mv $GIT_CONF $HOME/.gitconfig.pre-dotfiles-install
+    fi
+    
+    stow --dir=linux/ --target=$HOME .
+
+  ;;
+  *)
+    # leave as is
+    return
+    ;;
+  esac
+}
+
 main() {
   if [ "$(pwd)" != "$HOME/.dotfiles" ]; then
     echo "You'll need to clone .dotfiles in your home folder to make it work."
@@ -267,6 +300,10 @@ main() {
 
   # configure zsh & oh-my-zsh
   zsh_settings
+
+  # Create stow (symlinks) for config files
+  stow_configs
+
   # Reboot system 
   if [ "$RESTART_REQUIRED" = true ]; then
     printf "${RED}System will require to reboot after upgrade, You need to run this script again once the system reboots; would you like to reboot now? [Y/n]${NC}\n"
