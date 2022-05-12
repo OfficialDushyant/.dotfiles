@@ -4,7 +4,7 @@ alias ohmyzsh="code ~/.oh-my-zsh"
 
 if [ -x "$(command -v exa)" ]; then
    alias ls="exa --icons --grid"
-   alias ll="exa --long --icons --git --all --group --grid"
+   alias ll="exa --long --icons --all --group --grid"
    alias lr="exa --icons --recurse --group --grid"
 fi
 
