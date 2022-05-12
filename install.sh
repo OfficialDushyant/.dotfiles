@@ -8,8 +8,11 @@
 
 # Add dotfiles with stow (git configs, vim configs, zsh configs)
 
-
 # Run stow commands to sync dotfiles
+
+# use dconf load to load the gnome terminal for linux 
+
+# try to do export and import of terminal profile in mac.
 
 # Color Code
 RED='\033[0;31m'
@@ -201,6 +204,8 @@ install_apps() {
     # Install wget
     printf "\n $YELLOW_HL Installing wget HTTP and FTP services$NC\n"
     sudo apt-get install wget
+    # Install exa color schema
+    sudo apt-get install exa
     # Install GNU Stow for managing configs using symlinks
     printf "\n $YELLOW_HL Installing GNU Stow for managing dotfiles$NC\n"
     sudo apt-get install stow
@@ -226,26 +231,24 @@ install_fonts()
     ;;
   esac
 }
-setup_zsh()
+
+zsh_settings()
 {
   case $OS in
   "Linux")
-      # Install ZSH shell
-      sudo apt-get install zsh
-      # Install oh-my-zsh
-      sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-      # Install PowerLevel10K
-      git clone "https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k"
-      # Create symlinks to zsh config files 
-      stow --dir="$(pwd)/linux" --target="$HOME/"
-    ;;
+    # Check if the oh-my-zsh is installed
+    ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
+    if [ -d "$ZSH_CUSTOM" ]; then
+      git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k # clone powerlevel10k theme 
+      git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting # clone syntax highlighting plugin
+      git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions # clone autosuggestions plugin 
+    fi
+  ;;
   *)
     # leave as is
     return
     ;;
   esac
-
-
 }
 
 main() {
@@ -265,9 +268,8 @@ main() {
   # Install Fonts
   install_fonts
 
-  # Setup zsh
-  setup_zsh
-
+  # configure zsh & oh-my-zsh
+  zsh_settings
   # Reboot system 
   if [ "$RESTART_REQUIRED" = true ]; then
     printf "${RED}System will require to reboot after upgrade, You need to run this script again once the system reboots; would you like to reboot now? [Y/n]${NC}\n"
