@@ -4,6 +4,8 @@
 ```
 sudo apt update && sudo apt upgrade
 ```
+**Note:** *You may require to reboot your system for some of the updates to apply*
+
 ### STEP 2 Setup `ZSH`
 ```
 sudo apt-get install zsh
