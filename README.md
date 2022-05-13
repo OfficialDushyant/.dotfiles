@@ -25,6 +25,8 @@ git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerl
 
 ```
 $ sudo chmod u+x install.sh
+```
+```
 $ sh install.sh 
 ```
 **Note:** *System will require to reboot for the changes to take effect. So type `Y` if script ask for reboot or manually restart the system.*
