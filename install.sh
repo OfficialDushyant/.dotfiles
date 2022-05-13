@@ -210,7 +210,7 @@ install_apps() {
     sudo apt-get install dconf-cli uuid-runtime
     # Install OpenVPN Client 
     sudo apt-get install openvpn
-    sudo apt install network-manager-openvpn # Need to install the network-manager-openvpn package to make VPN settings from the graphical interface
+    sudo apt-get install network-manager-openvpn # Need to install the network-manager-openvpn package to make VPN settings from the graphical interface
     sudo systemctl start openvpn
     sudo systemctl enable openvpn 
     sudo systemctl status openvpn 
@@ -224,6 +224,7 @@ install_apps() {
 }
 install_fonts()
 {
+  printf "\n $YELLOW_HL Adding Nard fonts. $NC\n"
   case $OS in
   "Linux")
       cp -r -n "$(pwd)/fonts/fira_code_nf" "$HOME/.local/share/fonts"
@@ -248,9 +249,6 @@ zsh_settings()
       git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting # clone syntax highlighting plugin
       git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions # clone autosuggestions plugin 
     fi
-    # Add terminal theme that changes fonts for Powerlevel10K theme
-    dconf reset -f /org/gnome/terminal/
-    dconf load /org/gnome/terminal/ < linux/one-dark.txt
   ;;
   *)
     # leave as is
