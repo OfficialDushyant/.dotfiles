@@ -208,7 +208,12 @@ install_apps() {
     sudo apt-get install stow
     # Install dnf and runtime uuid 
     sudo apt-get install dconf-cli uuid-runtime
-
+    # Install OpenVPN Client 
+    sudo apt-get install openvpn
+    sudo apt install network-manager-openvpn # Need to install the network-manager-openvpn package to make VPN settings from the graphical interface
+    sudo systemctl start openvpn
+    sudo systemctl enable openvpn 
+    sudo systemctl status openvpn 
     ;;
   *)
     # leave as is
