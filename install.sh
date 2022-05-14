@@ -220,7 +220,7 @@ stow_configs()
         sudo mv $GIT_CONF $HOME/.gitconfig.pre-dotfiles-install
     fi
     
-    stow --target=$HOME linux/
+    stow --dir=$HOME/.dotfiles --target=$HOME linux/
 
   ;;
   *)
