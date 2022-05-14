@@ -1,4 +1,8 @@
 # Setting up new Linux system.
+
+<details>    
+<summary> Click to expand</summary>
+
 ### STEP 0 Clone this repo in your home folder
 ```
 git clone https://github.com/dushyantDevTips/.dotfiles.git
@@ -41,6 +45,7 @@ To do that go to preferences of your gnome terminal and set `Fir Code` as custom
 ![Setting Terminal app fonts](/linux/assets/fonts-preferance.png)
 
 **Note:** *The example in Image is taken from `Pop_OS` for `GNOME Terminal app` for different flavour of linux and applications would be different.* 
+</details>
 
 ---
 
