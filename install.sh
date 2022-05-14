@@ -121,7 +121,7 @@ system_setup() {
     VER=$VERSION_ID
 
     # Support WARNING;
-    printf "${RED}This script is tested for following linux distribution.\n 
+    printf "${BLUE}This script is tested for following linux distribution.\n 
     1) Pop!_OS 18.04 LTS and up\n 
     2) Ubuntu 18.04 LTS and up\n
     \n${NC}"
@@ -315,7 +315,7 @@ main() {
 
   # Reboot system 
   if [ "$RESTART_REQUIRED" = true ]; then
-    printf "${RED}System will require to reboot after upgrade, You need to run this script again once the system reboots; would you like to reboot now? [Y/n]${NC}\n"
+    printf "${GREEN}System will require to reboot after upgrade, You need to run this script again once the system reboots; would you like to reboot now? [Y/n]${NC}\n"
     reboot_default="y"                                    # Set Y to be default value
     read reboot                                           # Read user input
     reboot="${reboot:-${reboot_default}}"                 # Assign default value
