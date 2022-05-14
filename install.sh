@@ -224,7 +224,7 @@ zsh_settings()
       git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting # clone syntax highlighting plugin
       git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions # clone autosuggestions plugin 
     fi
-    source .zshrc
+    source $HOME/.zshrc
   ;;
   *)
     # leave as is
