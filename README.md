@@ -39,7 +39,9 @@ To do that go to preferences of your gnome terminal and set `FirCode Nerd Font` 
 
 **Note:** *The example in Image is taken from `Pop_OS` for `GNOME Terminal app` for different flavour of linux and applications would be different.* 
 
-### STEP 6 Source .zshrc file
+### Source .zshrc file
+
+On adding any changes to .zshrc file or .oh-my-zsh/custom[ theme | plugins ] for applying those changes, you need to source the .zshrc file by running following command.
 
 ```
 source $HOME/.zshrc
