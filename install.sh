@@ -153,7 +153,6 @@ install_tools() {
     sudo apt-get install network-manager-openvpn # Need to install the network-manager-openvpn package to make VPN settings from the graphical interface
     sudo systemctl start openvpn
     sudo systemctl enable openvpn 
-    sudo systemctl status openvpn 
     ;;
   *)
     # leave as is
@@ -162,6 +161,7 @@ install_tools() {
   esac
 
 }
+
 install_fonts()
 {
   printf "\n $YELLOW_HL Adding Nard fonts. $NC\n"
