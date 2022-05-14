@@ -17,18 +17,11 @@ sudo apt update && sudo apt upgrade
 ```
 sudo apt-get install zsh
 ```
-
 ### STEP 3 Install `Oh My Zsh`
 ```
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
-
-### STEP 4 Install zsh theme `Powerlevel10k`
-```
-git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
-```
-
-### STEP 5 Run `instal.sh` file from .dotfiles
+### STEP 4 Run `instal.sh` file from .dotfiles
 ```
 sudo chmod u+x $HOME/.dotfiles/install.sh
 ```
@@ -37,7 +30,7 @@ sh $HOME/.dotfiles/install.sh
 ```
 **Note:** *System will require to reboot for the changes to take effect. So type `Y` if script ask for reboot or manually restart the system.*
 
-### STEP 6 Change fonts for the terminal app
+### STEP 5 Change fonts for the terminal app
 
 You will require to change fonts for you terminal else the terminal prompt may seem glitched.
 To do that go to preferences of your gnome terminal and set `Fir Code` as custom font setting is your active profile.
