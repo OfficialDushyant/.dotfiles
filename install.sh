@@ -82,11 +82,11 @@ system_setup() {
     LogFile="$HOME/.dotfiles/SYSTEM_INFO.log"
 
     if [ ! -f "$LogFile" ]; then
-      printf "OS Info\n\n$(cat /etc/os-release)\n\n\n" >>SYSTEM_INFO.log
-      printf "CPU Info\n\n$(sudo lscpu)\n\n\n" >>SYSTEM_INFO.log
-      printf "GPU Info\n\n$(sudo lshw -C display)\n\n\n" >>SYSTEM_INFO.log
-      printf "Memory Info\n\n$(sudo lshw -C memory)\n\n\n" >>SYSTEM_INFO.log
-      printf "Volume Info\n\n$(sudo lshw -C volume)\n\n\n" >>SYSTEM_INFO.log
+      printf "OS Info\n\n$(cat /etc/os-release)\n\n\n" >>$LogFile
+      printf "CPU Info\n\n$(sudo lscpu)\n\n\n" >>$LogFile
+      printf "GPU Info\n\n$(sudo lshw -C display)\n\n\n" >>$LogFile
+      printf "Memory Info\n\n$(sudo lshw -C memory)\n\n\n" >>$LogFile
+      printf "Volume Info\n\n$(sudo lshw -C volume)\n\n\n" >>$LogFile
 
       # Set restart to true as it will be first time setup
       RESTART_REQUIRED=true
