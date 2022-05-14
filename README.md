@@ -30,10 +30,10 @@ git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerl
 
 ### STEP 5 Run `instal.sh` file from .dotfiles
 ```
-$ sudo chmod u+x $HOME/.dotfiles/install.sh
+sudo chmod u+x $HOME/.dotfiles/install.sh
 ```
 ```
-$ sh $HOME/.dotfiles/install.sh 
+sh $HOME/.dotfiles/install.sh 
 ```
 **Note:** *System will require to reboot for the changes to take effect. So type `Y` if script ask for reboot or manually restart the system.*
 
