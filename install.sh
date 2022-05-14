@@ -25,70 +25,10 @@ YELLOW='\033[0;33m'
 YELLOW_HL='\033[1;43m'
 NC='\033[0m' # No Color
 
+# Constants 
 RESTART_REQUIRED=false
 OS="$(uname -s)"
 
-# if [ "$OS" = "Linux" ]; then
-#   # Add ASCII art for OS
-
-#   printf "${BLUE}Initiating initial setup for Linux operating system.\n${NC}"
-#   printf "${RED}This script is tested for following linux distribution.\n
-#   1) Pop!_OS\n
-#   2) Ubuntu\n
-#   \n${NC}"
-
-#   # Print System info
-#   printf "$(egrep '^(VERSION|NAME)=' /etc/os-release)\n\n"
-#   # Ask if user want to go ahead with the setup
-
-#   printf "${YELLOW}Would you like to continue with the Linux initial setup ? [Y/n]${NC}\n"
-#   continue_default="y" # Set Y to be default value
-#   read  continue # Read user input
-#   continue="${continue:-${continue_default}}" # Assign default value
-#   continue=$(echo $continue | tr '[:upper:]' '[:lower:]')  # Change input to lowercase
-#   # If user in put is not "Y" exit the Script
-#   if [ "$continue" != "y" ] ; then
-#   exit 0
-#   fi
-
-#   # Update apt before installing
-#   sudo apt update && sudo apt upgrade
-
-#   # Install "TimeShift" backup app
-#   printf "${YELLOW}Installing TimeShift application for automated backup snapshot (Similar functionality as Time Machine in MacOS)${NC}\n\n"
-
-#   # Install TimeShift for snapshot backup
-#   sudo apt-get install timeshift
-
-#   printf "${YELLOW}Installing Flameshot application for taking Screenshot.${NC}\n\n"
-#   # Install Flameshot app for screen shot
-#   sudo apt-get install flameshot
-#   # Create dir for screenshot if don't exist
-#   Screenshots="$HOME/Pictures/Screenshots"
-#   if [ ! -d "$Screenshots" ]; then
-#     mkdir $Screenshots
-#   fi
-
-#   # Install Snap package
-#   printf "${YELLOW}Installing Snap package manager.${NC}\n\n"
-#   sudo apt-get install snapd
-
-#   # Installing bitwarden
-#   printf "${YELLOW}Installing Bitwarden password manager.${NC}\n\n"
-#   sudo snap install bitwarden
-
-#   # Installing Authy
-#   printf "${YELLOW}Installing 2FA Auth TOTP.${NC}\n\n"
-#   sudo snap install authy
-#   # Create required directories in system
-#   # printf "\n${GREEN}Creating required directories.${NC}\n"
-
-#   # Create default directory for saving Screenshots
-
-#   exit 0
-# fi
-
-# Drawing ascii art based on os
 draw_ascii() {
   case $1 in
   'Linux')
@@ -186,7 +126,7 @@ install_package_manager() {
   esac
 }
 
-install_apps() {
+install_tools() {
   case $OS in
   "Linux")
     # Install BitWarden (Password manager)
@@ -280,7 +220,7 @@ stow_configs()
         sudo mv $GIT_CONF $HOME/.gitconfig.pre-dotfiles-install
     fi
     
-    stow --dir=linux/ --target=$HOME .
+    stow --target=$HOME linux/
 
   ;;
   *)
@@ -298,7 +238,7 @@ main() {
   install_package_manager
 
   # Install basic applications
-  install_apps
+  install_tools
 
   # Install Fonts
   install_fonts

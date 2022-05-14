@@ -1,5 +1,7 @@
+.vscode/
+.oh-my-zsh/custom/plugins
+.oh-my-zsh/custom/themes
 SYSTEM_INFO.log
 error.log
-.vscode/
 linux/.ssh
 mac_os/.ssh
