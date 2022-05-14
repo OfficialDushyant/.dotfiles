@@ -38,6 +38,13 @@ To do that go to preferences of your gnome terminal and set `FirCode Nerd Font` 
 ![Setting Terminal app fonts](/linux/assets/firCodeFont_instruction.png)
 
 **Note:** *The example in Image is taken from `Pop_OS` for `GNOME Terminal app` for different flavour of linux and applications would be different.* 
+
+### STEP 6 Source .zshrc file
+
+```
+source $HOME/.zshrc
+```
+
 </details>
 
 ---
