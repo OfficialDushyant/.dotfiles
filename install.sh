@@ -291,10 +291,6 @@ stow_configs()
 }
 
 main() {
-  if [ "$(pwd)" != "$HOME/.dotfiles" ]; then
-    echo "You'll need to clone .dotfiles in your home folder to make it work."
-    exit 0
-  fi
   # Performs initial setup for new systems (Installing basic packages)
   system_setup
 
