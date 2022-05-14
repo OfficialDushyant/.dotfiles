@@ -33,9 +33,9 @@ sh $HOME/.dotfiles/install.sh
 ### STEP 5 Change fonts for the terminal app
 
 You will require to change fonts for you terminal else the terminal prompt may seem glitched.
-To do that go to preferences of your gnome terminal and set `Fir Code` as custom font setting is your active profile.
+To do that go to preferences of your gnome terminal and set `FirCode Nerd Font` as custom font setting is your active profile.
 
-![Setting Terminal app fonts](/linux/assets/fonts-preferance.png)
+![Setting Terminal app fonts](/linux/assets/firCodeFont_instruction.png)
 
 **Note:** *The example in Image is taken from `Pop_OS` for `GNOME Terminal app` for different flavour of linux and applications would be different.* 
 </details>
