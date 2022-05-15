@@ -1,19 +1,5 @@
 #!/bin/sh
 
-# TODO
-
-# Instal nerd fonts
-
-# Setup Oh-my-zsh
-
-# Add dotfiles with stow (git configs, vim configs, zsh configs)
-
-# Run stow commands to sync dotfiles
-
-# use dconf load to load the gnome terminal for linux 
-
-# try to do export and import of terminal profile in mac.
-
 # Color Code
 RED='\033[0;31m'
 RED_HL='\033[1;41m'
@@ -25,7 +11,7 @@ YELLOW='\033[0;33m'
 YELLOW_HL='\033[1;43m'
 NC='\033[0m' # No Color
 
-# Constants 
+# Constants
 RESTART_REQUIRED=false
 OS="$(uname -s)"
 
@@ -146,13 +132,13 @@ install_tools() {
     # Install GNU Stow for managing configs using symlinks
     printf "\n $YELLOW_HL Installing GNU Stow for managing dotfiles$NC\n"
     sudo apt-get install stow
-    # Install dnf and runtime uuid 
+    # Install dnf and runtime uuid
     sudo apt-get install dconf-cli uuid-runtime
-    # Install OpenVPN Client 
+    # Install OpenVPN Client
     sudo apt-get install openvpn
     sudo apt-get install network-manager-openvpn # Need to install the network-manager-openvpn package to make VPN settings from the graphical interface
     sudo systemctl start openvpn
-    sudo systemctl enable openvpn 
+    sudo systemctl enable openvpn
     ;;
   *)
     # leave as is
@@ -162,14 +148,13 @@ install_tools() {
 
 }
 
-install_fonts()
-{
+install_fonts() {
   printf "\n $YELLOW_HL Adding Nard fonts. $NC\n"
   case $OS in
   "Linux")
-      cp -r -n "$(pwd)/fonts/fira_code_nf" "$HOME/.local/share/fonts"
-      cp -n "$(pwd)/fonts/PowerlineSymbols.otf" "$HOME/.local/share/fonts"
-      fc-cache -f -v
+    cp -r -n "$(pwd)/fonts/fira_code_nf" "$HOME/.local/share/fonts"
+    cp -n "$(pwd)/fonts/PowerlineSymbols.otf" "$HOME/.local/share/fonts"
+    fc-cache -f -v
     ;;
   *)
     # leave as is
@@ -178,13 +163,10 @@ install_fonts()
   esac
 }
 
-
-
-stow_configs()
-{
+stow_configs() {
   case $OS in
   "Linux")
-    
+
     # Move .zshrc tile if already created
     ZSHRC="$HOME/.zshrc"
     if [ -f "$ZSHRC" ]; then
@@ -200,12 +182,12 @@ stow_configs()
     # Move .gitconfig tile if already created
     GIT_CONF="$HOME/.gitconfig"
     if [ -f "$GIT_CONF" ]; then
-        sudo mv $GIT_CONF $HOME/.gitconfig.pre-dotfiles-install
+      sudo mv $GIT_CONF $HOME/.gitconfig.pre-dotfiles-install
     fi
-    
+
     stow --dir=$HOME/.dotfiles --target=$HOME linux/
 
-  ;;
+    ;;
   *)
     # leave as is
     return
@@ -213,18 +195,17 @@ stow_configs()
   esac
 }
 
-zsh_settings()
-{
+zsh_settings() {
   case $OS in
   "Linux")
     # Check if the oh-my-zsh is installed
     ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
     if [ -d "$ZSH_CUSTOM" ]; then
-      git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k # clone powerlevel10k theme 
+      git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k                        # clone powerlevel10k theme
       git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting # clone syntax highlighting plugin
-      git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions # clone autosuggestions plugin 
+      git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions             # clone autosuggestions plugin
     fi
-  ;;
+    ;;
   *)
     # leave as is
     return
@@ -245,33 +226,33 @@ main() {
   # Install Fonts
   install_fonts
 
-  # Create stow (symlinks) for config files
-  stow_configs
-
   # configure zsh & oh-my-zsh
   zsh_settings
 
-  # Reboot system 
+  # Create stow (symlinks) for config files
+  stow_configs
+
+  # Reboot system
   if [ "$RESTART_REQUIRED" = true ]; then
     printf "${GREEN}System will require to reboot after upgrade, You need to run this script again once the system reboots; would you like to reboot now? [Y/n]${NC}\n"
-    reboot_default="y"                                    # Set Y to be default value
-    read reboot                                           # Read user input
-    reboot="${reboot:-${reboot_default}}"                 # Assign default value
-    reboot=$(echo $reboot | tr '[:upper:]' '[:lower:]')   # Change input to lowercase
+    reboot_default="y"                                  # Set Y to be default value
+    read reboot                                         # Read user input
+    reboot="${reboot:-${reboot_default}}"               # Assign default value
+    reboot=$(echo $reboot | tr '[:upper:]' '[:lower:]') # Change input to lowercase
     # If user in put is not "Y" exit the Script
     if [ "$reboot" = "y" ]; then
-        case $OS in
-        "Linux")
-          sudo systemctl reboot
+      case $OS in
+      "Linux")
+        sudo systemctl reboot
         ;;
-        "Darwin")
-          sudo shutdown -r now
+      "Darwin")
+        sudo shutdown -r now
         ;;
-        *)
-          # leave as is
+      *)
+        # leave as is
         return
         ;;
-  esac
+      esac
     else
       printf "${RED}You will require to do manual reboot for some updates to take effect.${NC}\n"
       sleep 5
