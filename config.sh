@@ -1,0 +1,171 @@
+#!/bin/sh
+
+# Color Code
+RED='\033[0;31m'
+RED_HL='\033[1;41m'
+GREEN_HL='\033[1;42m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+BLUE_HL='\033[1;44m'
+YELLOW='\033[0;33m'
+YELLOW_HL='\033[1;43m'
+NC='\033[0m' # No Color
+TIME=$(date "+%Y.%m.%d-%H.%M.%S")
+OS="$(uname -s)"
+
+# ? Config Function template
+# <filename>_config ()
+# {
+#     if [ "$1"  = "--link" ]; then
+#         case $OS in
+#             "Linux")
+                
+#             ;;
+#             *)
+#                 # leave as is
+#                 return
+#             ;;
+#         esac
+#     fi
+#     if [ "$1"  = "--unlink" ]; then
+#         case $OS in
+#             "Linux")
+                
+#             ;;
+#             *)
+#                 # leave as is
+#                 return
+#             ;;
+#         esac
+#     fi 
+# }
+
+
+git_config ()
+{
+    # Link config
+    if [ "$1"  = "--link" ]; then
+        case $OS in
+            "Linux")
+                 GIT_CONF="$HOME/.gitconfig"
+                if [ -f "$GIT_CONF" ]; then
+                    sudo mv $GIT_CONF $HOME/.gitconfig.pre-config-run.$TIME
+                fi
+                ln -s $HOME/.dotfiles/configs/.gitconfig $GIT_CONF
+                ls -l $HOME/.dotfiles/configs/.gitconfig
+            ;;
+            *)
+                # leave as is
+                return
+            ;;
+        esac
+    fi
+    # Unlink config
+    if [ "$1"  = "--unlink" ]; then
+        case $OS in
+            "Linux")
+                GIT_CONF="$HOME/.gitconfig"
+                unlink  $GIT_CONF       
+            ;;
+            *)
+                # leave as is
+                return
+            ;;
+        esac
+    fi
+}
+zsh_config ()
+{
+    if [ "$1"  = "--link" ]; then
+        case $OS in
+            "Linux")
+                 ZSH_CONF="$HOME/.zshrc"
+                if [ -f "$ZSH_CONF" ]; then
+                    sudo mv $ZSH_CONF $HOME/.zshrc.pre-config-run.$TIME
+                fi
+                ln -s $HOME/.dotfiles/configs/.zshrc $ZSH_CONF
+                ls -l $HOME/.dotfiles/configs/.zshrc
+            ;;
+            *)
+                # leave as is
+                return
+            ;;
+        esac
+    fi
+    if [ "$1"  = "--unlink" ]; then
+        case $OS in
+            "Linux")
+                ZSH_CONF="$HOME/.gitconfig"
+                unlink  $ZSH_CONF  
+            ;;
+            *)
+                # leave as is
+                return
+            ;;
+        esac
+    fi 
+}
+
+# TODO Add any config option managed through this file. 
+list_help()
+{
+    printf "$YELLOW_HL Config options.$NC\n"
+    printf "$GREEN
+    --link or -l (To create symbolic link between config file on .dotfiles project and link location)\n
+    --unlink or -u (To remove created symbolic link)
+    $NC\n"
+    printf "$YELLOW_HL Following configurations are managed by the config.sh script.$NC\n"
+    printf "$GREEN
+    Git (Version control system),\n 
+    Hyper.js (Terminal Emulator),\n 
+    zshrc (zsh shell configs),\n 
+    omz (oh-my-zsh plugins and themes)\n 
+    $NC\n"
+}
+
+main()
+{
+    # Parse Action
+    case $1 in
+        -l| --link) 
+            action="--link"
+        ;;
+        -u| --unlink)
+            action="--unlink"
+        ;;
+        --help| *)
+            list_help
+            exit 0
+        ;;
+    esac
+    action=$(echo $action | tr '[:upper:]' '[:lower:]')
+
+    # Parse config arguments
+    if [ $# -gt 1 ]; then
+        for args in "$@" 
+        do 
+            args=$(echo $args | tr '[:upper:]' '[:lower:]') # Change input to lowercase
+            case $args in 
+            "git")
+                git_config $action 
+            ;;
+            "zsh")
+                zsh_config $action 
+            ;;
+            -l| --link| -u| --unlink| --help)
+                # do nothing it is parsed as action 
+            ;;   
+            *)
+                printf "$RED Configuration instruction for \"$args\" dose not exist.$NC"    
+            ;;
+            esac
+        done
+
+    else 
+        # TODO add config function to cover in running all functions at once.
+        git_config $action
+        zsh_config $action 
+    fi
+}
+
+main $@
