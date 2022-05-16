@@ -12,6 +12,7 @@ YELLOW_HL='\033[1;43m'
 NC='\033[0m' # No Color
 TIME=$(date "+%Y.%m.%d-%H.%M.%S")
 OS="$(uname -s)"
+DOTFILES_CONF="$HOME/.dotfiles/configs"
 
 # ? Config Function template
 # <filename>_config ()
@@ -51,8 +52,8 @@ git_config ()
                 if [ -f "$GIT_CONF" ]; then
                     sudo mv $GIT_CONF $HOME/.gitconfig.pre-config-run.$TIME
                 fi
-                ln -s $HOME/.dotfiles/configs/.gitconfig $GIT_CONF
-                ls -l $HOME/.dotfiles/configs/.gitconfig
+                ln -s $DOTFILES_CONF/.gitconfig $GIT_CONF
+                ls -l $DOTFILES_CONF/.gitconfig
             ;;
             *)
                 # leave as is
@@ -83,8 +84,8 @@ zsh_config ()
                 if [ -f "$ZSH_CONF" ]; then
                     sudo mv $ZSH_CONF $HOME/.zshrc.pre-config-run.$TIME
                 fi
-                ln -s $HOME/.dotfiles/configs/.zshrc $ZSH_CONF
-                ls -l $HOME/.dotfiles/configs/.zshrc
+                ln -s $DOTFILES_CONF/.zshrc $ZSH_CONF
+                ls -l $DOTFILES_CONF/.zshrc
             ;;
             *)
                 # leave as is
@@ -95,7 +96,7 @@ zsh_config ()
     if [ "$1"  = "--unlink" ]; then
         case $OS in
             "Linux")
-                ZSH_CONF="$HOME/.gitconfig"
+                ZSH_CONF="$HOME/.zshrc"
                 unlink  $ZSH_CONF  
             ;;
             *)
@@ -106,6 +107,56 @@ zsh_config ()
     fi 
 }
 
+omz_config ()
+{
+    if [ "$1"  = "--link" ]; then
+        case $OS in
+            "Linux")
+                OMZ_CUSTOM="$HOME/.oh-my-zsh/custom"
+                OMZ_CONF_ALIASES="$OMZ_CUSTOM/alias.zsh"
+                OMZ_CONF_FUNCTIONS="$OMZ_CUSTOM/functions.zsh"
+                P10K_CONF="$HOME/.p10k.zsh"
+
+                if [ -f "$OMZ_CONF_ALIASES" ]; then
+                    sudo mv $OMZ_CONF_ALIASES $OMZ_CUSTOM/alias.zsh.pre-config-run.$TIME
+                    sudo mv $OMZ_CONF_FUNCTIONS $OMZ_CUSTOM/functions.zsh.pre-config-run.$TIME
+                    sudo mv $P10K_CONF $HOME/.p10k.pre-config-run.$TIME
+                fi
+                
+                ln -s $DOTFILES_CONF/.oh-my-zsh/custom/alias.zsh $OMZ_CONF_ALIASES
+                ls -l $OMZ_CONF_ALIASES
+
+                ln -s $DOTFILES_CONF/.oh-my-zsh/custom/alias.zsh $OMZ_CONF_FUNCTIONS
+                ls -l $OMZ_CONF_FUNCTIONS
+
+                ln -s $DOTFILES_CONF/.p10k.zsh $HOME
+                ls -l $P10K_CONF
+            ;;
+            *)
+                # leave as is
+                return
+            ;;
+        esac
+    fi
+    if [ "$1"  = "--unlink" ]; then
+        case $OS in
+            "Linux")
+                OMZ_CUSTOM="$HOME/.oh-my-zsh/custom"
+                OMZ_CONF_ALIASES="$OMZ_CUSTOM/alias.zsh"
+                OMZ_CONF_FUNCTIONS="$OMZ_CUSTOM/functions.zsh"
+                P10K_CONF="$HOME/.p10k.zsh"
+
+                unlink $OMZ_CONF_ALIASES
+                unlink $OMZ_CONF_FUNCTIONS 
+                unlink $P10K_CONF
+            ;;
+            *)
+                # leave as is
+                return
+            ;;
+        esac
+    fi     
+}
 # TODO Add any config option managed through this file. 
 list_help()
 {
@@ -152,11 +203,16 @@ main()
             "zsh")
                 zsh_config $action 
             ;;
+            "omz")
+                omz_config $action
+            ;;
             -l| --link| -u| --unlink| --help)
                 # do nothing it is parsed as action 
             ;;   
             *)
-                printf "$RED Configuration instruction for \"$args\" dose not exist.$NC"    
+                printf "$RED Configuration instruction for \"$args\" dose not exist.$NC" 
+                list_help
+                exit 1   
             ;;
             esac
         done
@@ -165,6 +221,7 @@ main()
         # TODO add config function to cover in running all functions at once.
         git_config $action
         zsh_config $action 
+        omz_config $action
     fi
 }
 
