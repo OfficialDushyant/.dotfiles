@@ -132,6 +132,8 @@ install_tools() {
     # Install GNU Stow for managing configs using symlinks
     printf "\n $YELLOW_HL Installing GNU Stow for managing dotfiles$NC\n"
     sudo apt-get install stow
+    # Install Neofetch command line tool
+    sudo apt-get install neofetch 
     # Install dnf and runtime uuid
     sudo apt-get install dconf-cli uuid-runtime
     # Install OpenVPN Client
