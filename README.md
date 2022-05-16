@@ -19,7 +19,7 @@ sudo apt-get install zsh
 ```
 ### STEP 3 Install `Oh My Zsh`
 ```
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh) --keep-zshrc"
 ```
 ### STEP 4 Run `instal.sh` file from .dotfiles
 ```
