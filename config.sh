@@ -73,6 +73,7 @@ git_config() {
         esac
     fi
 }
+
 zsh_config() {
     if [ "$1" = "--link" ]; then
         case $OS in
@@ -153,6 +154,7 @@ omz_config() {
         esac
     fi
 }
+
 # TODO Add any config option managed through this file.
 list_help() {
     printf "$YELLOW_HL Config options.$NC\n"
