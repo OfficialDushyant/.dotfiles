@@ -1,0 +1,25 @@
+[Desktop Entry]
+
+# The type as listed above
+Type=Application
+
+# The version of the desktop entry specification to which this file complies
+Version=1.0
+
+# The name of the application
+Name=Bitwarden
+
+# A comment which can/will be used as a tooltip
+Comment=Password management client
+
+# The executable of the application, possibly with arguments.
+Exec=/home/dushyant/.dotfiles/linux/appimages/Bitwarden.AppImage
+
+# The name of the icon that will be used to display this entry
+Icon=/home/dushyant/.dotfiles/linux/assets/app_icons/256x256.png
+
+# Describes whether this application needs to be run in a terminal or not
+Terminal=false
+
+# Describes the categories in which this entry should be shown
+Categories=Utility;

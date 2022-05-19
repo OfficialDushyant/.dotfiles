@@ -1,19 +1,5 @@
 #!/bin/sh
 
-# Color Code
-RED='\033[0;31m'
-RED_HL='\033[1;41m'
-GREEN_HL='\033[1;42m'
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-BLUE_HL='\033[1;44m'
-YELLOW='\033[0;33m'
-YELLOW_HL='\033[1;43m'
-NC='\033[0m' # No Color
-TIME=$(date "+%Y.%m.%d-%H.%M.%S")
-OS="$(uname -s)"
-DOTFILES_CONF="$HOME/.dotfiles/configs"
-
 # ? Config Function template
 # <filename>_config ()
 # {
@@ -40,6 +26,7 @@ DOTFILES_CONF="$HOME/.dotfiles/configs"
 #         esac
 #     fi
 # }
+. $(pwd)/constants.sh
 
 git_config() {
     # Link config
@@ -157,7 +144,7 @@ omz_config() {
 
 # TODO Add any config option managed through this file.
 list_help() {
-    printf "$YELLOW_HL Config options.$NC\n"
+    printf "\n$YELLOW_HL Config options.$NC\n"
     printf "$GREEN
     --link or -l (To create symbolic link between config file on .dotfiles project and link location)\n
     --unlink or -u (To remove created symbolic link)
@@ -205,7 +192,7 @@ main() {
                 # do nothing it is parsed as action
                 ;;
             *)
-                printf "$RED Configuration instruction for \"$args\" dose not exist.$NC"
+                printf "\n$RED Configuration instruction for \"$args\" dose not exist.$NC\n"
                 list_help
                 exit 1
                 ;;
