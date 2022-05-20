@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # Color Code
+WHITE='\033[0;37m'
 RED='\033[0;31m'
 RED_HL='\033[1;41m'
 GREEN_HL='\033[1;42m'

@@ -28,7 +28,7 @@ module.exports = {
         // set to `true` (without backticks and without quotes) for blinking cursor
         cursorBlink: true,
         // color of the text
-        foregroundColor: '#0f0',
+        foregroundColor: '#00FF00',
         // terminal background color
         // opacity is only supported on macOS
         backgroundColor: '#000',
