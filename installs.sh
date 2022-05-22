@@ -51,12 +51,19 @@ app_installs_for_linux() {
   Pop!_OS | Ubuntu)
     #! Install apps for Linux
     case $1 in
+    Bitwarden)
+      printf "$WHITE$BLUE_HL Installing Bitwarden desktop client$NC\n"
+      desktop-file-validate $HOME/.dotfiles/linux/appimages/Bitwarden.desktop
+      desktop-file-install --dir=$HOME/.local/share/applications $HOME/.dotfiles/linux/appimages/Bitwarden.desktop
+      update-desktop-database $HOME/.local/share/applications
+      printf "$GREEN Bitwarden desktop client appimage is Installed$NC\n"
+    ;;
     Authy)
       printf "$WHITE$BLUE_HL Installing Authy 2FA TOTP generator$NC\n"
       printf "$RED Installing Authy requires to install snap package manager to be installed$NC\n"
       sudo apt install snapd
       sudo snap install authy
-
+      printf "$GREEN authy snap package is installed Installed$NC\n"
     ;;
     VScode)
       printf "$WHITE$BLUE_HL Installing Visual Studio Code$NC\n"
@@ -108,7 +115,7 @@ main() {
       "CopyQ" "CopyQ clipboard history utility" off \
       >install_options.txt)
     # Clear the screen
-    clear
+    # clear
     OPTIONS=$(cat install_options.txt | tr -s ' ' '\n')
     app_installs_for_linux "$OPTIONS"
   fi
