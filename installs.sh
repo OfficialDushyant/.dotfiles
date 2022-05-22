@@ -51,12 +51,28 @@ app_installs_for_linux()
 
     # Install apps for Specific Linux Distribution 
     case $DIST in 
+    # Debian based os support.
     Pop!_OS | Ubuntu)
       #! Install apps for Linux
-      for app in $(echo $OPTIONS | sed "s/\n/ /g")
-      do
-        echo "Installing.... $app"
-      done
+      case $1 in 
+      VScode)
+        printf "$WHITE$BLUE_HL Installing Visual Studio Code$NC\n"
+        sudo dpkg --install $HOME/.dotfiles/linux/dpkg/vscode.deb
+      ;;
+      Flameshot)
+        printf "$WHITE$BLUE_HL Installing Flameshot screenshot utility$NC\n"
+        sudo apt install flameshot
+      ;;
+      CopyQ)
+        printf "$WHITE$BLUE_HL Installing CopyQ clipboard history utility$NC\n"
+        sudo add-apt-repository ppa:noobslab/indicators
+        sudo apt update
+        sudo apt install copyq
+      ;;
+      *)
+        # Do nothing here
+      ;;
+      esac  
     ;;
     *)
     printf "$DIST for $OS is not yet supported by this script"
@@ -80,17 +96,19 @@ main()
     # Run installs specific to Linux OS
     if [ "$OS" = "Linux" ]; then
         # Get user selection for list of app options to install in Linux system
-        OPTIONS=$(dialog --stdout --title "Select apps to install from the list" --checklist "Use space to select or deselect, and arrow key to navigate" 20 78 4 \
+        OPTIONS=$(dialog --stdout --title "Select apps to install from the list" --checklist "Use space to select or deselect, and arrow key to navigate" 40 100 40 \
                   "Bitwarden" "Bitwarden client for password manger https://bitwarden.com/" off \
-                  "Authy" "Authy 2FA TOTP generator https://authy.com/" off \
-                  "neofetch" "Neofetch CLI tool for system info" off \
+                  "Authy" "Authy 2FA TOTP generator https://authy.com/ Requires Snap package manager" off \
+                  "Neofetch" "Neofetch CLI tool for system info" off \
                   "Exa" "exa CLI tool for color code ls command" off \
                   "VScode" "VScode code editor https://code.visualstudio.com/" off \
+                  "Flameshot" "Screenshot application for linux" off \
+                  "CopyQ" "CopyQ clipboard history utility" off \
                   > install_options.txt)    
         # Clear the screen
         clear
         OPTIONS=$(cat install_options.txt | tr -s ' ' '\n')  
-        echo "$OPTIONS"
+        app_installs_for_linux "$OPTIONS"
     fi
 
     exit 0
