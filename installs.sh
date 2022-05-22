@@ -51,6 +51,13 @@ app_installs_for_linux() {
   Pop!_OS | Ubuntu)
     #! Install apps for Linux
     case $1 in
+    Authy)
+      printf "$WHITE$BLUE_HL Installing Authy 2FA TOTP generator$NC\n"
+      printf "$RED Installing Authy requires to install snap package manager to be installed$NC\n"
+      sudo apt install snapd
+      sudo snap install authy
+
+    ;;
     VScode)
       printf "$WHITE$BLUE_HL Installing Visual Studio Code$NC\n"
       sudo dpkg --install $HOME/.dotfiles/linux/dpkg/vscode.deb
