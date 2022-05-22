@@ -72,6 +72,8 @@ main()
     draw_ascii
 
     printf "\n$WHITE$BLUE_HL Script requires to install \"dialog\" command line tool to take user inputs.$NC\n"
+    # Update and upgrade apt
+    sudo apt update && sudo apt upgrade
     # Install dialog command line tool
     sudo apt-get install dialog
     
