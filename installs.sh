@@ -54,12 +54,16 @@ app_installs() {
       install_authy
     fi
     # Install Neofetch
-    if [ $app = "Neofetch"]; then
+    if [ $app = "Neofetch" ]; then
       install_neofetch
     fi
     # Install Exa
-    if [ $app = "Exa"]; then
+    if [ $app = "Exa" ]; then
       install_exa
+    fi
+    # Install VScode
+    if [ $app = "VScode" ]; then
+      install_code
     fi
     # echo $app
   done
@@ -150,7 +154,7 @@ install_authy() {
   "Darwin")
     printf "$WHITE$BLUE_HL Installing Authy 2FA TOTP generator$NC\n"
     brew install --cask authy
-    printf "$GREEN authy snap package is installed Installed$NC\n"
+    printf "$GREEN authy snap package is installed $NC\n"
     ;;
   *)
     # leave as is
@@ -164,9 +168,9 @@ install_exa()
   "Linux")
     case $DIST in
     Ububtu | Pop!_OS)
-      printf "$WHITE$BLUE_HL Installing Authy 2FA TOTP generator$NC\n"
+      printf "$WHITE$BLUE_HL Installing exa colorized ls replacement$NC\n"
       sudo apt install exa
-      printf "$GREEN authy snap package is installed Installed$NC\n"
+      printf "$GREEN exa is installed.$NC\n"
       ;;
     *)
       printf "Script is not supporting $DIST Linux distribution yet."
@@ -174,9 +178,9 @@ install_exa()
     esac
     ;;
   "Darwin")
-    printf "$WHITE$BLUE_HL Installing Authy 2FA TOTP generator$NC\n"
-    brew install exa
-    printf "$GREEN authy snap package is installed Installed$NC\n"
+      printf "$WHITE$BLUE_HL Installing exa colorized ls replacement$NC\n"
+      brew install exa
+      printf "$GREEN exa is installed.$NC\n"
     ;;
   *)
     # leave as is
@@ -193,7 +197,35 @@ install_neofetch()
     Ububtu | Pop!_OS)
       printf "$WHITE$BLUE_HL Installing Neofetch command line utility$NC\n"
         sudo apt install neofetch
-      printf "$GREEN Neofetch is installed Installed$NC\n"
+      printf "$GREEN Neofetch is installed$NC\n"
+      ;;
+    *)
+      printf "Script is not supporting $DIST Linux distribution yet."
+      ;;
+    esac
+    ;;
+  "Darwin")
+    printf "$WHITE$BLUE_HL Installing Neofetch command line utility$NC\n"
+    brew install --cask visual-studio-code
+    printf "$GREEN Neofetch is installed $NC\n"
+    ;;
+  *)
+    # leave as is
+    return
+    ;;
+  esac
+}
+
+install_code()
+{
+
+  case $OS in
+  "Linux")
+    case $DIST in
+    Ububtu | Pop!_OS)
+      printf "$WHITE$BLUE_HL Installing VScode code editor$NC\n"
+      sudo dpkg --install $HOME/.dotfiles/linux/dpkg/vscode.deb
+      printf "$GREEN VScode is installed$NC\n"
       ;;
     *)
       printf "Script is not supporting $DIST Linux distribution yet."
@@ -203,7 +235,7 @@ install_neofetch()
   "Darwin")
     printf "$WHITE$BLUE_HL Installing Neofetch command line utility$NC\n"
       brew install neofetch
-    printf "$GREEN Neofetch is installed Installed$NC\n"
+    printf "$GREEN Neofetch is installed $NC\n"
     ;;
   *)
     # leave as is
