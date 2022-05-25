@@ -57,6 +57,10 @@ app_installs() {
     if [ $app = "Neofetch"]; then
       install_neofetch
     fi
+    # Install Exa
+    if [ $app = "Exa"]; then
+      install_exa
+    fi
     # echo $app
   done
   # case $1 in
@@ -146,6 +150,32 @@ install_authy() {
   "Darwin")
     printf "$WHITE$BLUE_HL Installing Authy 2FA TOTP generator$NC\n"
     brew install --cask authy
+    printf "$GREEN authy snap package is installed Installed$NC\n"
+    ;;
+  *)
+    # leave as is
+    return
+    ;;
+  esac
+}
+install_exa()
+{
+  case $OS in
+  "Linux")
+    case $DIST in
+    Ububtu | Pop!_OS)
+      printf "$WHITE$BLUE_HL Installing Authy 2FA TOTP generator$NC\n"
+      sudo apt install exa
+      printf "$GREEN authy snap package is installed Installed$NC\n"
+      ;;
+    *)
+      printf "Script is not supporting $DIST Linux distribution yet."
+      ;;
+    esac
+    ;;
+  "Darwin")
+    printf "$WHITE$BLUE_HL Installing Authy 2FA TOTP generator$NC\n"
+    brew install exa
     printf "$GREEN authy snap package is installed Installed$NC\n"
     ;;
   *)
