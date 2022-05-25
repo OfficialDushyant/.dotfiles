@@ -53,6 +53,10 @@ app_installs() {
     if [ $app = "Authy" ]; then
       install_authy
     fi
+    # Install Neofetch
+    if [ $app = "Neofetch"]; then
+      install_neofetch
+    fi
     # echo $app
   done
   # case $1 in
@@ -143,6 +147,33 @@ install_authy() {
     printf "$WHITE$BLUE_HL Installing Authy 2FA TOTP generator$NC\n"
     brew install --cask authy
     printf "$GREEN authy snap package is installed Installed$NC\n"
+    ;;
+  *)
+    # leave as is
+    return
+    ;;
+  esac
+}
+
+install_neofetch() 
+{
+  case $OS in
+  "Linux")
+    case $DIST in
+    Ububtu | Pop!_OS)
+      printf "$WHITE$BLUE_HL Installing Neofetch command line utility$NC\n"
+        sudo apt install neofetch
+      printf "$GREEN Neofetch is installed Installed$NC\n"
+      ;;
+    *)
+      printf "Script is not supporting $DIST Linux distribution yet."
+      ;;
+    esac
+    ;;
+  "Darwin")
+    printf "$WHITE$BLUE_HL Installing Neofetch command line utility$NC\n"
+      brew install neofetch
+    printf "$GREEN Neofetch is installed Installed$NC\n"
     ;;
   *)
     # leave as is
