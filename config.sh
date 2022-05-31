@@ -1,34 +1,9 @@
 #!/bin/sh
 
-# ? Config Function template
-# <filename>_config ()
-# {
-#     if [ "$1"  = "--link" ]; then
-#         case $OS in
-#             "Linux")
-
-#             ;;
-#             *)
-#                 # leave as is
-#                 return
-#             ;;
-#         esac
-#     fi
-#     if [ "$1"  = "--unlink" ]; then
-#         case $OS in
-#             "Linux")
-
-#             ;;
-#             *)
-#                 # leave as is
-#                 return
-#             ;;
-#         esac
-#     fi
-# }
 . $(pwd)/constants.sh
 
-git_config() {
+git_config() 
+{
     # Link config
     if [ "$1" = "--link" ]; then
         case $OS in
@@ -61,7 +36,8 @@ git_config() {
     fi
 }
 
-zsh_config() {
+zsh_config() 
+{
     if [ "$1" = "--link" ]; then
         case $OS in
         "Linux")
@@ -92,19 +68,21 @@ zsh_config() {
     fi
 }
 
-omz_config() {
+omz_config() 
+{
     if [ "$1" = "--link" ]; then
         case $OS in
         "Linux")
             OMZ_CUSTOM="$HOME/.oh-my-zsh/custom"
             OMZ_CONF_ALIASES="$OMZ_CUSTOM/alias.zsh"
             OMZ_CONF_FUNCTIONS="$OMZ_CUSTOM/functions.zsh"
-            P10K_CONF="$HOME/.p10k.zsh"
 
             if [ -f "$OMZ_CONF_ALIASES" ]; then
                 sudo mv $OMZ_CONF_ALIASES $OMZ_CUSTOM/alias.zsh.pre-config-run.$TIME
+            fi
+            if [ -f "$OMZ_CONF_FUNCTIONS" ]; then
                 sudo mv $OMZ_CONF_FUNCTIONS $OMZ_CUSTOM/functions.zsh.pre-config-run.$TIME
-                sudo mv $P10K_CONF $HOME/.p10k.pre-config-run.$TIME
+
             fi
 
             ln -s $DOTFILES_CONF/.oh-my-zsh/custom/alias.zsh $OMZ_CONF_ALIASES
@@ -112,9 +90,6 @@ omz_config() {
 
             ln -s $DOTFILES_CONF/.oh-my-zsh/custom/alias.zsh $OMZ_CONF_FUNCTIONS
             ls -l $OMZ_CONF_FUNCTIONS
-
-            ln -s $DOTFILES_CONF/.p10k.zsh $HOME
-            ls -l $P10K_CONF
             ;;
         *)
             # leave as is
@@ -128,10 +103,44 @@ omz_config() {
             OMZ_CUSTOM="$HOME/.oh-my-zsh/custom"
             OMZ_CONF_ALIASES="$OMZ_CUSTOM/alias.zsh"
             OMZ_CONF_FUNCTIONS="$OMZ_CUSTOM/functions.zsh"
-            P10K_CONF="$HOME/.p10k.zsh"
 
             unlink $OMZ_CONF_ALIASES
             unlink $OMZ_CONF_FUNCTIONS
+            ;;
+        *)
+            # leave as is
+            return
+            ;;
+        esac
+    fi
+}
+
+p10k_config()
+{
+
+    if [ "$1" = "--link" ]; then
+        case $OS in
+        "Linux")
+            P10K_CONF="$HOME/.p10k.zsh"
+
+            if [ -f "$P10K_CONF" ]; then
+                sudo mv $P10K_CONF $HOME/.p10k.pre-config-run.$TIME
+            fi
+
+            ln -s $DOTFILES_CONF/.p10k.zsh $HOME
+            ls -l $P10K_CONF
+            ;;
+        *)
+            # leave as is
+            return
+            ;;
+        esac
+    fi
+    if [ "$1" = "--unlink" ]; then
+        case $OS in
+        "Linux")
+            P10K_CONF="$HOME/.p10k.zsh"
+
             unlink $P10K_CONF
             ;;
         *)
@@ -153,8 +162,9 @@ list_help() {
     printf "$GREEN
     Git (Version control system),\n 
     Hyper.js (Terminal Emulator),\n 
-    zshrc (zsh shell configs),\n 
+    zsh (zsh shell configs),\n 
     omz (oh-my-zsh plugins and themes)\n 
+    p10k (Power level 10K omz theme)\n
     $NC\n"
 }
 
@@ -187,6 +197,9 @@ main() {
                 ;;
             "omz")
                 omz_config $action
+                ;;
+            "p10k")
+                p10k_config $action
                 ;;
             -l | --link | -u | --unlink | --help)
                 # do nothing it is parsed as action
