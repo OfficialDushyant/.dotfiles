@@ -71,7 +71,7 @@ app_installs() {
     fi
     # Install CopyQ
     if [ $app = "CopyQ" ]; then
-      install_flameshot
+      install_copyq
     fi
     # echo $app
   done
