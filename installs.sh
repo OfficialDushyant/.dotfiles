@@ -73,6 +73,9 @@ app_installs() {
     if [ $app = "CopyQ" ]; then
       install_copyq
     fi
+    if [ $app = "Nardfonts" ]; then
+      install_nard_fonts
+    fi
     # echo $app
   done
 }
@@ -256,6 +259,37 @@ install_copyq()
   esac
 }
 
+install_nard_fonts()
+{
+
+  case $OS in
+  "Linux")
+    case $DIST in
+    Ububtu | Pop!_OS)
+      printf "$WHITE$BLUE_HL Installing firacode nerdfonts$NC\n"
+      cp -r -n "$(pwd)/fonts/fira_code_nf" "$HOME/.local/share/fonts"
+      cp -n "$(pwd)/fonts/PowerlineSymbols.otf" "$HOME/.local/share/fonts"
+      fc-cache -f -v  
+      printf "$GREEN nerdfonts are installed$NC\n"
+      ;;
+    *)
+      printf "Script is not supporting $DIST Linux distribution yet."
+      ;;
+    esac
+    ;;
+  "Darwin")
+    printf "$WHITE$BLUE_HL Installing firacode nerdfonts$NC\n"
+    cp "$(pwd)/fonts/fira_code_nf/*.ttf" "$HOME/Library/Fonts"
+    cp "$(pwd)/fonts/PowerlineSymbols.otf" "$HOME/Library/Fonts"
+    printf "$GREEN nerdfonts are installed $NC\n"
+    ;;
+  *)
+    # leave as is
+    return
+    ;;
+  esac
+}
+
 main() {
   # Draw ascii art for specific system
   draw_ascii
@@ -277,6 +311,7 @@ main() {
       "VScode" "VScode code editor https://code.visualstudio.com/" off \
       "Flameshot" "Screenshot application for linux https://flameshot.org/" off \
       "CopyQ" "CopyQ clipboard history utility https://hluk.github.io/CopyQ/" off \
+      "Nardfonts" "Nard fonts is popular dev env fonts required for p10k omz theme. https://www.nerdfonts.com/font-downloads" off \
       >install_options.txt)
     # Clear the screen
     clear
