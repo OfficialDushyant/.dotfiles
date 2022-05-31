@@ -65,6 +65,10 @@ app_installs() {
     if [ $app = "VScode" ]; then
       install_code
     fi
+    # Install Flameshot
+    if [ $app = "Flameshot" ]; then
+      install_flameshot
+    fi
     # echo $app
   done
   # case $1 in
@@ -111,7 +115,6 @@ app_installs() {
   #   ;;
   # esac
 }
-
 install_bitwarden() {
   case $OS in
   "Linux")
@@ -134,7 +137,6 @@ install_bitwarden() {
     ;;
   esac
 }
-
 install_authy() {
   case $OS in
   "Linux")
@@ -188,7 +190,6 @@ install_exa()
     ;;
   esac
 }
-
 install_neofetch() 
 {
   case $OS in
@@ -215,10 +216,8 @@ install_neofetch()
     ;;
   esac
 }
-
 install_code()
 {
-
   case $OS in
   "Linux")
     case $DIST in
@@ -236,6 +235,33 @@ install_code()
     printf "$WHITE$BLUE_HL Installing Neofetch command line utility$NC\n"
       brew install neofetch
     printf "$GREEN Neofetch is installed $NC\n"
+    ;;
+  *)
+    # leave as is
+    return
+    ;;
+  esac
+}
+
+install_flameshot()
+{
+  case $OS in
+  "Linux")
+    case $DIST in
+    Ububtu | Pop!_OS)
+      printf "$WHITE$BLUE_HL Installing Flameshot screenshot app$NC\n"
+      sudo apt install flameshot
+      printf "$GREEN Flameshot is installed$NC\n"
+      ;;
+    *)
+      printf "Script is not supporting $DIST Linux distribution yet."
+      ;;
+    esac
+    ;;
+  "Darwin")
+    printf "$WHITE$BLUE_HL Installing Flameshot screenshot app$NC\n"
+    brew install --cask flameshot
+    printf "$GREEN Flameshot is installed $NC\n"
     ;;
   *)
     # leave as is
