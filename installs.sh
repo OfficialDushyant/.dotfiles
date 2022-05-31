@@ -69,6 +69,10 @@ app_installs() {
     if [ $app = "Flameshot" ]; then
       install_flameshot
     fi
+    # Install CopyQ
+    if [ $app = "CopyQ" ]; then
+      install_flameshot
+    fi
     # echo $app
   done
   # case $1 in
@@ -242,7 +246,6 @@ install_code()
     ;;
   esac
 }
-
 install_flameshot()
 {
   case $OS in
@@ -262,6 +265,32 @@ install_flameshot()
     printf "$WHITE$BLUE_HL Installing Flameshot screenshot app$NC\n"
     brew install --cask flameshot
     printf "$GREEN Flameshot is installed $NC\n"
+    ;;
+  *)
+    # leave as is
+    return
+    ;;
+  esac
+}
+install_copyq()
+{
+  case $OS in
+  "Linux")
+    case $DIST in
+    Ububtu | Pop!_OS)
+      printf "$WHITE$BLUE_HL Installing copyq clipboard app$NC\n"
+      sudo apt install copyq
+      printf "$GREEN copyq is installed$NC\n"
+      ;;
+    *)
+      printf "Script is not supporting $DIST Linux distribution yet."
+      ;;
+    esac
+    ;;
+  "Darwin")
+    printf "$WHITE$BLUE_HL Installing copyq clipboard app$NC\n"
+    brew install --cask copyq
+    printf "$GREEN copyq is installed $NC\n"
     ;;
   *)
     # leave as is
