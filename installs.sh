@@ -75,49 +75,6 @@ app_installs() {
     fi
     # echo $app
   done
-  # case $1 in
-  # Bitwarden)
-  #   printf "$WHITE$BLUE_HL Installing Bitwarden desktop client$NC\n"
-  #   desktop-file-validate $HOME/.dotfiles/linux/appimages/Bitwarden.desktop
-  #   desktop-file-install --dir=$HOME/.local/share/applications $HOME/.dotfiles/linux/appimages/Bitwarden.desktop
-  #   update-desktop-database $HOME/.local/share/applications
-  #   printf "$GREEN Bitwarden desktop client appimage is Installed$NC\n"
-  # ;;
-  # Authy)
-  #   printf "$WHITE$BLUE_HL Installing Authy 2FA TOTP generator$NC\n"
-  #   printf "$RED Installing Authy requires to install snap package manager to be installed$NC\n"
-  #   sudo apt install snapd
-  #   sudo snap install authy
-  #   printf "$GREEN authy snap package is installed Installed$NC\n"
-  # ;;
-  # Neofetch)
-  #   printf "$WHITE$BLUE_HL Installing Neofetch CLI utility$NC\n"
-  #   sudo apt install neofetch
-  # ;;
-  # Exa)
-  #   printf "$WHITE$BLUE_HL Installing exa cli colorized ls replacement tool$NC\n"
-  #   sudo apt install exa
-  # ;;
-  # VScode)
-  #   printf "$WHITE$BLUE_HL Installing Visual Studio Code$NC\n"
-  #   sudo dpkg --install $HOME/.dotfiles/linux/dpkg/vscode.deb
-  #   ;;
-  # Flameshot)
-  #   printf "$WHITE$BLUE_HL Installing Flameshot screenshot utility$NC\n"
-  #   sudo apt install flameshot
-  #   ;;
-  # CopyQ)
-  #   printf "$WHITE$BLUE_HL Installing CopyQ clipboard history utility$NC\n"
-  #   sudo add-apt-repository ppa:noobslab/indicators
-  #   sudo apt update
-  #   sudo apt install copyq
-  #   ;;
-  # *)
-  #   printf $1
-  #   printf "$WHITE$BLUE_HL Option may not be configured.$NC\n"
-  #   # Do nothing here
-  #   ;;
-  # esac
 }
 install_bitwarden() {
   case $OS in
