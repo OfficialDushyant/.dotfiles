@@ -18,22 +18,19 @@ TIME=$(date "+%Y.%m.%d-%H.%M.%S")
 # OS type
 OS="$(uname -s)"
 
-# Local dotfiles path 
-DOTFILES_CONF="$HOME/.dotfiles/configs"
 
-# Get OS Distribution and version
+# SET OS,Distribution, version and custom constants
 case $OS in
   "Linux")
     . /etc/os-release
     DIST=$NAME
     VER=$VERSION_ID
+    # Local dotfiles path 
+    DOTFILES_CONF="$HOME/.dotfiles/linux/configs"
     ;;
   "Darwin")
-    OIFS="$IFS"
-    IFS=$'\n'
-    set $(sw_vers) >/dev/null
-    DIST=$(echo $1 | tr "\n:\t\t\t" ' ' | sed 's/ProductName[ ]*//')
-    VER=$(echo $2 | tr "\n:\t\t" ' ' | sed 's/ProductVersion[ ]*//')
+    # Local dotfiles path 
+    DOTFILES_CONF="$HOME/.dotfiles/mac_os/configs"
     ;;
   *)
     # leave as is
