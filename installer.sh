@@ -205,7 +205,8 @@ zsh_settings() {
     if [ -d "$ZSH_CUSTOM" ]; then
       git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k                        # clone powerlevel10k theme
       git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting # clone syntax highlighting plugin
-      git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions             # clone autosuggestions plugin
+      git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions   
+      git clone https://github.com/wbingli/zsh-wakatime.git $ZSH_CUSTOM/plugins/zsh-wakatime
     fi
     ;;
   *)
