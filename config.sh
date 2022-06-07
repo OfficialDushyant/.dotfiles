@@ -1,6 +1,8 @@
 #!/bin/sh
 
 . $(pwd)/constants.sh
+. $(pwd)/omz/themes.sh
+. $(pwd)/omz/plugins.sh
 
 git_config() 
 {
@@ -106,42 +108,6 @@ omz_config()
 
             unlink $OMZ_CONF_ALIASES
             unlink $OMZ_CONF_FUNCTIONS
-            ;;
-        *)
-            # leave as is
-            return
-            ;;
-        esac
-    fi
-}
-
-p10k_config()
-{
-
-    if [ "$1" = "--link" ]; then
-        case $OS in
-        "Linux")
-            P10K_CONF="$HOME/.p10k.zsh"
-
-            if [ -f "$P10K_CONF" ]; then
-                sudo mv $P10K_CONF $HOME/.p10k.pre-config-run.$TIME
-            fi
-
-            ln -s $DOTFILES_CONF/.p10k.zsh $HOME
-            ls -l $P10K_CONF
-            ;;
-        *)
-            # leave as is
-            return
-            ;;
-        esac
-    fi
-    if [ "$1" = "--unlink" ]; then
-        case $OS in
-        "Linux")
-            P10K_CONF="$HOME/.p10k.zsh"
-
-            unlink $P10K_CONF
             ;;
         *)
             # leave as is
