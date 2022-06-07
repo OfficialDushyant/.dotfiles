@@ -167,6 +167,9 @@ main() {
             "p10k")
                 p10k_config $action
                 ;;
+            "zsh_wakatime")
+                zsh_wakatime $action
+                ;;
             -l | --link | -u | --unlink | --help)
                 # do nothing it is parsed as action
                 ;;
@@ -179,7 +182,7 @@ main() {
         done
 
     else
-        # TODO add config function to cover in running all functions at once.
+        # TODO add config function to create for basic symlinks except omz themes and plugins.
         git_config $action
         zsh_config $action
         omz_config $action
