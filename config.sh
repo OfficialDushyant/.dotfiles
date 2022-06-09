@@ -184,8 +184,6 @@ main() {
     else
         # TODO add config function to create for basic symlinks except omz themes and plugins.
         git_config $action
-        zsh_config $action
-        omz_config $action
     fi
 }
 
