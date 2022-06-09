@@ -1,7 +1,0 @@
-[core]
-	editor = code -w
-[init]
-	defaultBranch = main
-[user]
-	email = devops@bydushyant.com
-	name = Dushyant

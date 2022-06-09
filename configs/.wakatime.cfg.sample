@@ -1,4 +1,5 @@
 
+# Build .wakatime.cfg file based on this sample file
 [settings]
 api_key = < Add your api key from wakatime settings here >
 hide_file_names = false
