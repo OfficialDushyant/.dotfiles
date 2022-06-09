@@ -6,14 +6,14 @@ ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 
 p10k_config()
 {
-    # Clone the theme in omz customs dir
-    git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+    
 
     if [ "$1" = "--link" ]; then
         case $OS in
         "Linux")
+            # Clone the theme in omz customs dir
+            git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
             P10K_CONF="$HOME/.p10k.zsh"
-
             if [ -f "$P10K_CONF" ]; then
                 sudo mv $P10K_CONF $HOME/.p10k.pre-config-run.$TIME
             fi
@@ -31,6 +31,7 @@ p10k_config()
         case $OS in
         "Linux")
             P10K_CONF="$HOME/.p10k.zsh"
+            rm -rf $ZSH_CUSTOM/themes/powerlevel10k
             unlink $P10K_CONF
             ;;
         *)
