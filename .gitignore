@@ -5,7 +5,7 @@ SYSTEM_INFO.log
 error.log
 linux/.ssh
 mac_os/.ssh
-install_options.txt
+install_options.tmp
 
 
 configs/.wakatime.cfg
