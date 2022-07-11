@@ -15,6 +15,11 @@ zsh_autosuggestions()
     git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 }
 
+zsh_nvm()
+{
+    git clone https://github.com/lukechilds/zsh-nvm  $ZSH_CUSTOM/plugins/zsh-nvm
+}
+
 zsh_wakatime()
 {
     if [ "$1" = "--link" ]; then

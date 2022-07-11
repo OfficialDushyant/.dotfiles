@@ -87,11 +87,23 @@ omz_config()
 
             fi
 
+            # Create symlink for omz alias 
             ln -s $DOTFILES_CONF/.oh-my-zsh/custom/alias.zsh $OMZ_CONF_ALIASES
             ls -l $OMZ_CONF_ALIASES
-
+            
+            # Create symlink for omz functions
             ln -s $DOTFILES_CONF/.oh-my-zsh/custom/alias.zsh $OMZ_CONF_FUNCTIONS
             ls -l $OMZ_CONF_FUNCTIONS
+
+            # Clone omz plugins
+            printf "$GREEN Installing WakaTime plugin. $NC\n"
+            zsh_wakatime
+            printf "$GREEN Installing zsh_nvm plugin. $NC\n" 
+            zsh_nvm
+            printf "$GREEN Installing autosuggestion plugin. $NC\n" 
+            zsh_autosuggestions
+            printf "$GREEN Installing syntax highlighting plugin. $NC\n" 
+            zsh_syntax_highlighting
             ;;
         *)
             # leave as is
@@ -116,7 +128,6 @@ omz_config()
         esac
     fi
 }
-
 # TODO Add any config option managed through this file.
 list_help() {
     printf "\n$YELLOW_HL Config options.$NC\n"
@@ -130,7 +141,6 @@ list_help() {
     Hyper.js (Terminal Emulator),\n 
     zsh (zsh shell configs),\n 
     omz (oh-my-zsh plugins and themes)\n 
-    p10k (Power level 10K omz theme)\n
     $NC\n"
 }
 
@@ -167,9 +177,6 @@ main() {
             "p10k")
                 p10k_config $action
                 ;;
-            "zsh_wakatime")
-                zsh_wakatime $action
-                ;;
             -l | --link | -u | --unlink | --help)
                 # do nothing it is parsed as action
                 ;;
@@ -180,10 +187,6 @@ main() {
                 ;;
             esac
         done
-
-    else
-        # TODO add config function to create for basic symlinks except omz themes and plugins.
-        git_config $action
     fi
 }
 

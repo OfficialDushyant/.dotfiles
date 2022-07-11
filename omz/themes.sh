@@ -6,8 +6,6 @@ ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 
 p10k_config()
 {
-    
-
     if [ "$1" = "--link" ]; then
         case $OS in
         "Linux")

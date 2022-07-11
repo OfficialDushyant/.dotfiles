@@ -258,7 +258,6 @@ install_copyq()
     ;;
   esac
 }
-
 install_nard_fonts()
 {
 
@@ -294,14 +293,13 @@ main() {
   # Draw ascii art for specific system
   draw_ascii
 
-  printf "\n$WHITE$BLUE_HL Script requires to install \"dialog\" command line tool to take user inputs.$NC\n"
-  # Update and upgrade apt
-  sudo apt update && sudo apt upgrade
-  # Install dialog command line tool
-  sudo apt-get install dialog
-
   # Run installs specific to Linux OS
   if [ "$OS" = "Linux" ]; then
+    printf "\n$WHITE$BLUE_HL Script requires to install \"dialog\" command line tool to take user inputs.$NC\n"
+    # Update and upgrade apt
+    sudo apt update && sudo apt upgrade
+    # Install dialog command line tool
+    sudo apt-get install dialog
     # Get user selection for list of app options to install in Linux system
     OPTIONS=$(dialog --stdout --title "Select apps to install from the list" --checklist "Use space to select or deselect, and arrow key to navigate" 40 100 40 \
       "Bitwarden" "Bitwarden client for password manger https://bitwarden.com/" off \
@@ -312,10 +310,11 @@ main() {
       "Flameshot" "Screenshot application for linux https://flameshot.org/" off \
       "CopyQ" "CopyQ clipboard history utility https://hluk.github.io/CopyQ/" off \
       "Nardfonts" "Nard fonts is popular dev env fonts required for p10k omz theme. https://www.nerdfonts.com/font-downloads" off \
-      >install_options.txt)
+      >install_options.tmp)
     # Clear the screen
     clear
-    OPTIONS=$(cat install_options.txt | tr -s ' ' ';')
+    OPTIONS=$(cat install_options.tmp | tr -s ' ' ';')
+    rm -f /tmp/install_options.tmp
     # Install selected tools
     app_installs "$OPTIONS"
   fi

@@ -21,4 +21,3 @@ alias openvpn3=openvpn
 cd() { builtin cd "$@"; ll; }               
 free () { (sudo kill -9 $(sudo lsof -t -i:$@)) }
 trash () { command gio trash "$@"; }     
-
