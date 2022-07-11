@@ -7,7 +7,7 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH="$HOME/.config/composer/vendor/bin:$PATH"
+export PATH="$HOME/.config/composer/vendor/bin:/usr/local/share/npm/bin:~$PATH"
 
 
 # Path to your oh-my-zsh installation.
@@ -80,9 +80,11 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-  git 
+  git
+  nvm 
   zsh-autosuggestions
   zsh-syntax-highlighting
+  zsh-nvm
   wakatime
 )
 
