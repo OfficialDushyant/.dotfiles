@@ -7,7 +7,7 @@ fi
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH="$HOME/.config/composer/vendor/bin:/usr/local/share/npm/bin:~$PATH"
+export PATH="$HOME/.config/composer/vendor/bin:/usr/local/share/npm/bin:$HOME/.nvm/versions/node/v16.16.0/bin/node:~$PATH"
 
 
 # Path to your oh-my-zsh installation.
