@@ -13,6 +13,9 @@ export PATH="$HOME/.config/composer/vendor/bin:/usr/local/share/npm/bin:~$PATH"
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+# Pathe to golang environment variable
+export PATH=$PATH:/usr/local/go/bin
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
