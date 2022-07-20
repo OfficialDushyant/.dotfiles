@@ -15,6 +15,7 @@ alias finder='open -a Finder ./'
 alias ~="cd ~"                              
 alias c=clear
 alias openvpn3=openvpn
+alias projects='cd /media/"$USER"/Projects'
 
 #functions 
 
