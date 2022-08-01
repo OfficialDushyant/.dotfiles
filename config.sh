@@ -37,6 +37,38 @@ git_config()
         esac
     fi
 }
+hyper_config() 
+{
+    HYPER_CONF="$HOME/.hyper.js"
+        # Link config
+    if [ "$1" = "--link" ]; then
+        case $OS in
+        "Linux")
+            if [ -f "$HYPER_CONF" ]; then
+                sudo mv $HYPER_CONF $HOME/.hyper.js.pre-config-run.$TIME
+            fi
+            ln -s $DOTFILES_CONF/.hyper.js $HYPER_CONF
+            ls -l $DOTFILES_CONF/.hyper.js
+            ;;
+        *)
+            # leave as is
+            return
+            ;;
+        esac
+    fi
+    # Unlink config
+    if [ "$1" = "--unlink" ]; then
+        case $OS in
+        "Linux")
+            unlink $HYPER_CONF
+            ;;
+        *)
+            # leave as is
+            return
+            ;;
+        esac
+    fi
+}
 
 zsh_config() 
 {
@@ -72,6 +104,7 @@ zsh_config()
 
 omz_config() 
 {
+    # !BUG: Wakatime plugin is not cloning (Something to do with if condition $1 is not passed when called)
     if [ "$1" = "--link" ]; then
         case $OS in
         "Linux")
